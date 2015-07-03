@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 
-<div class="container">
+<div class="container"> <!-- ng-controller="FeedCtrl"-->
   <div class="row">
     <div class="col-lg-12">
     <a href="">Log In To Vote</a><br> 
@@ -9,7 +9,8 @@
     <p>Hello {{ userName }}.</p>
     <a href="">View My Favorite Blogs</a>
     <h1>Top Programming Blogs</h1>
-    <p>Top Programming Blogs ranks the top blogs in the programming field by popularity metrics.</p>
+    <p>Top Programming Blogs ranks the top blogs in the programming field by popularity metrics.</p> 
+    
     <table class="table table-bordered">
     <thead>
       <tr>
@@ -19,7 +20,8 @@
         <th><span class="glyphicon glyphicon-sort"></span> Linking Sites</th>
         <th><span class="glyphicon glyphicon-sort"></span> Page Authority</th>
         <th><span class="glyphicon glyphicon-sort"></span> Moz Rank</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Page Rank</th>
+        <th>Twitter Name</th>
+        <th><span class="glyphicon glyphicon-sort"></span> Followers</th>
         <th>Lastest Article</th>
       </tr>
     </thead>
@@ -30,9 +32,10 @@
         <td><span class="glyphicon glyphicon-thumbs-up" data-ng-click="addVote($index)"></span> {{ blog.votes.length }}</td>
         <td>{{ blog.linkingsites }}</td>
         <td>{{ blog.mozrank }}</td>
-        <td>{{ blog.pagerank }}</td>
         <td>{{ blog.pageauthority }}</td>
-        <td><a href="http://blog.codinghorror.com/">{{ blog.latestarticle }}</a></td>
+        <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
+        <td>{{ blog.twitterFollowers }}</td>
+        <td><div id="feed">Google Feed</div><!-- <div ng-init="showRss({{blog.rssFeed}})"</div> <div id="feed"></div>--> {{blog.rssFeed}}  <div id="feed">Google Feed</div></td>
       </tr>
     </tbody>
     </table>
@@ -40,12 +43,17 @@
     <form>
       <span>Title: </span> <input type="text" ng-model="newContent" /></input>
       <span>URL: </span> <input type="text" ng-model="newUrl" /></input>
+      <span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input>
+      <span>Twitter URL: </span> <input type="text" ng-model="newTwitUrl" /></input>
+      <span>RSS Feed: </span> <input type="text" ng-model="newRss" /></input>
       <button type="submit" data-ng-click="addBlog()">Add Blog</button>
     </form>
       <p>{{ newContent }}</p>  
       
-    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog</p
-      
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog</p>
+    <div id="feed">Google Feed</div>  
+    
+    <!--
     <ul>
       <li ng-repeat="x in names">
         {{ x.Name + ', ' + x.Country }}
@@ -57,14 +65,44 @@
         {{ followers.followers_count }}
       </li>
     </ul>
-
+  
     <ul>
       <li ng-repeat="racers in racerNames">
         {{ racers.Driver.givenName }}
       </li>
     </ul>
+    -->
 
-<p>{{ siteData }} </p>
+
+    <ul>
+      <li ng-repeat="data in siteData">
+        {{ data.uu }} 
+        {{ data.umrp }}
+        {{ data.upa }}
+      </li>
+      <li>MozData goes here</li>
+    </ul>
+
+    <p>{{ mozData.umrp }} </p> 
+
+
+    <feed url="http://feeds.feedburner.com/CssTricks" count=1 summary=true></feed>
+
+    <feed url="http://feeds.feedburner.com/alistapart/main" count=1 summary=true></feed>
+    
+    
+
+    <div ng-repeat="rss in myRss" > 
+    <h5><a href="{{rss.link}}">{{rss.title}}</a></h5>
+ <p class="text-left">{{rss.contentSnippet}}</p>
+ <div class="line line-lg b-b b-light"></div>
+ <div class="text-muted">
+  <i class="fa fa-clock-o text-muted"></i>
+  <span class="small">{{rss.publishedDate}}</span>
+      </div>
+    </div>
+    
+
 
     </div>
   </div>
@@ -93,7 +131,27 @@
 -->
 
 <footer class="footer">
-  <div class="container">
+  
+  <!-- <div class="container"> 
+   
+    <div ng-repeat="feed in feeds">
+	<h2><a href="{{feed.link}}" target="_blank">{{feed.title}}</a></h2>
+	<p><span ng-repeat="item in feed.entries">
+		<a href="{{item.link}}" target="_blank">{{item.title}}</a> (<span>{{item.publishedDate | date:'d-MM-yyyy HH:mm'}}</span>)<br />
+	</span></p>
+</div>
+   -->
+    <!--
+    <div ng-repeat="feed in feeds" > 
+    <h5><a href="{{feed.link}}">{{feed.title}}</a></h5>
+ <p class="text-left">{{feed.contentSnippet}}</p>
+ <div class="line line-lg b-b b-light"></div>
+ <div class="text-muted">
+  <i class="fa fa-clock-o text-muted"></i>
+  <span class="small">{{feed.publishedDate}}</span>
+      </div>
+    </div>
+    -->
       <p>Angular Fullstack v2.0.13 |
         <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
          <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>

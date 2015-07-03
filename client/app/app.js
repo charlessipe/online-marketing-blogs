@@ -6,6 +6,7 @@ angular.module('topProgrammingBlogsApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
+  //'feeds',
   'firebase'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
