@@ -171,9 +171,10 @@ angular.module('topProgrammingBlogsApp')
   
   
     // works in JSBin
-    
-    
-    var url = "http://feeds.feedburner.com/CssTricks";
+    /*
+    //function showRss(rssFeed) {
+    var url = "http://feeds.feedblitz.com/scotch_io";
+    //var url = $scope.blogs.rssFeed;
         
     google.load("feeds", "1");
 
@@ -182,15 +183,56 @@ angular.module('topProgrammingBlogsApp')
       feed.load(function(result) {
         if (!result.error) {
           for (var i = 0; i < 1; i++) {
-            var entry = result.feed.entries[i];       document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>";
+            var entry = result.feed.entries[i];
+            $scope.currentRss = entry;
+            document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>";
           }
         }
       });
     }
     initialize();
 
-    
+    //}
+    */
+    //$scope.rssArray;  
+  
+    $scope.currentRss = [];
+  
+    $scope.showRss = function(start) {  // cycle through blogs array rssFeed key
+      var rssNumber = $scope.blogs[start].rssFeed;
+        
+      google.load("feeds", "1");
 
+      function initialize() {
+        var feed = new google.feeds.Feed(rssNumber);
+        feed.load(function(result) {
+          if (!result.error) {
+            var entry = result.feed.entries[0];
+            $scope.currentRss.push(entry);
+    
+            //$scope.currentRss = entry;
+            //$scope.rssArray.push = entry; 
+            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
+        }
+        $scope.$apply();  
+        });
+      }
+      initialize();
+      //} // end for loop
+    }
+    
+    
+    //$scope.showRss();
+    /*
+    var number;
+    for(var number = 0; number < 2; number++){
+      $scope.showRss(number);
+      //$('#name').val($scope.accounts[i].name);
+    }
+    */ 
+    
+  
+  
     /*
     
     function showRss(rssFeed){
@@ -329,7 +371,7 @@ angular.module('topProgrammingBlogsApp')
         twitterUrl: getTwitUrl,
         twitterFollowers: 100,
         rssFeed: getRss,
-        latestarticle: "Why Inline CSS Must Die in 2015 or Be Replaced With a New Method"
+        blogScore: 100
       };
 
       $scope.blogs.$add(newBlog);
@@ -347,6 +389,7 @@ angular.module('topProgrammingBlogsApp')
       }
     }
 
+    //var rss = $scope.blogs[1].votes;
   
     /*$http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
