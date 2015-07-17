@@ -2,48 +2,8 @@
 
 angular.module('topProgrammingBlogsApp')
 
-  // Stackoverflow example http://stackoverflow.com/questions/27032964/mean-js-resource-to-call-express-server-restful-api
-  /*
-  .factory("UserService", ["$resource",
-    function($resource) {
-        var resource;
 
-        resource = $resource("/api/users", null, {
-            listUsers: {
-                method: "GET",
-                isArray: true
-            }
-        });
-
-        return resource;
-    }
-])
-
-  .controller("UserCtrl", ["$scope", "UserService",
-    function($scope, userService) {
-
-        $scope.loadUsers = function() {
-            userService.listUsers(function(resource, headers) {
-                // this function is called on success, with the result
-                // stored within the `resource` variable
-
-                // ...
-
-            }, function(response) {
-                // this function is called on error
-
-                // ...
-
-            });
-        };
-    }
-])
-    */
-
-
-
-  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray) {
-   //, FeedService
+  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource) {
   
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
@@ -155,56 +115,21 @@ angular.module('topProgrammingBlogsApp')
   
     console.log($scope.mozData);  
     */
+
   
     // Google Feed API
   
+   $scope.currentRss = []; 
   
-    
-     
-    
-    /*
-    $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=15&callback=?&q=http://feeds.feedburner.com/CssTricks').then(function(res) {
-      $scope.myRss = res.data.responseData.feed.entries;
-      });
-      //$scope.rssData = data.feed.entries.title; 
-    */
-  
-  
-    // works in JSBin
-    /*
-    //function showRss(rssFeed) {
-    var url = "http://feeds.feedblitz.com/scotch_io";
-    //var url = $scope.blogs.rssFeed;
-        
-    google.load("feeds", "1");
-
-    function initialize() {
-      var feed = new google.feeds.Feed(url);
-      feed.load(function(result) {
-        if (!result.error) {
-          for (var i = 0; i < 1; i++) {
-            var entry = result.feed.entries[i];
-            $scope.currentRss = entry;
-            document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>";
-          }
-        }
-      });
-    }
-    initialize();
-
-    //}
-    */
-    //$scope.rssArray;  
-  
-    $scope.currentRss = [];
-  
-    $scope.showRss = function(start) {  // cycle through blogs array rssFeed key
-      var rssNumber = $scope.blogs[start].rssFeed;
+    $scope.showRss = function(start) {  
+   
+      //for(var index = 0; index < $scope.blogs.length; index++){
+      var rssUrl = $scope.blogs[start].rssFeed;
         
       google.load("feeds", "1");
 
       function initialize() {
-        var feed = new google.feeds.Feed(rssNumber);
+        var feed = new google.feeds.Feed(rssUrl);
         feed.load(function(result) {
           if (!result.error) {
             var entry = result.feed.entries[0];
@@ -218,120 +143,103 @@ angular.module('topProgrammingBlogsApp')
         });
       }
       initialize();
-      //} // end for loop
+      // end for loop
+      //}
     }
-    
     
     //$scope.showRss();
-    /*
-    var number;
-    for(var number = 0; number < 2; number++){
-      $scope.showRss(number);
-      //$('#name').val($scope.accounts[i].name);
-    }
-    */ 
     
-  
-  
-    /*
     
-    function showRss(rssFeed){
-        
-    google.load("feeds", "1");
+    
+    
+      // Twitter API
+    
+      // GET users/show
+    /*
+   var twitterApi = $resource("https://api.twitter.com/1.1/users/show.json?screen_name=charlessipe",
+        { callback: "JSON_CALLBACK" },
+        { get: { method: "JSONP" }});
+        // {authentication: }
 
-    function initialize() {
-      var feed = new google.feeds.Feed(url);
-      feed.load(function(result) {
-        if (!result.error) {
-          for (var i = 0; i < 1; i++) {
-            var entry = result.feed.entries[i];       document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>";
-          }
+    //$scope.followerCount = twitterApi.get(followers_count);
+  */
+  
+    // Via Stackoverflow http://stackoverflow.com/questions/24222205/angular-js-and-twitter-api-how-can-we-hook-them-up
+    var consumerKey = encodeURIComponent('l6ENz8qThSI7btJzL8XeFe5nq')
+    var consumerSecret = encodeURIComponent('ihBEIaEtV7gvmPaPtqEYwPIGQLkp9DCW4TWeJiJQMEmkqbe2ZH');
+    var credentials = btoa(consumerKey + ':' + consumerSecret);
+  
+  /*
+  // Twitters OAuth service endpoint
+  var twitterOauthEndpoint = $http.post(
+    'https://api.twitter.com/oauth2/token'
+    , "grant_type=client_credentials"
+    , {headers: {'Authorization': 'Basic ' + credentials, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}}
+  );
+  */
+  
+      // via http://fdietz.github.io/recipes-with-angular-js/consuming-external-services/consuming-jsonp-apis.html
+    
+      var TwitterAPI = $resource("https://api.twitter.com/1.1/users/show.json?screen_name=charlessipe",
+        { callback: "JSON_CALLBACK" },
+        { get: { method: "JSONP" }},
+        { headers: {'Authorization': 'Basic ' + credentials, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}}                         
+        );
+  
+        $scope.followers = TwitterAPI.get();
+        //$scope.followers = 5;
+        console.log($scope.followers);
+
+  //https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
+  
+    $scope.search = function() {
+    $scope.searchResult = TwitterAPI.get({ q: $scope.searchTerm });
+    };
+    
+    
+    
+    
+        // Twitter Beautiful Bytes 
+    
+        /*
+        .factory('twitter', function ($resource, $http) {
+            var consumerKey = encodeURIComponent('l6ENz8qThSI7btJzL8XeFe5nq')
+            var consumerSecret = encodeURIComponent('ihBEIaEtV7gvmPaPtqEYwPIGQLkp9DCW4TWeJiJQMEmkqbe2ZH')
+            var credentials = Base64.encode(consumerKey + ':' + consumerSecret)
+            // Twitters OAuth service endpoint
+            var twitterOauthEndpoint = $http.post(
+                'https://api.twitter.com/oauth2/token'
+                , "grant_type=client_credentials"
+                , {headers: {'Authorization': 'Basic ' + credentials, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}}
+            )
+            twitterOauthEndpoint.success(function (response) {
+                // a successful response will return
+                // the "bearer" token which is registered
+                // to the $httpProvider
+                serviceModule.$httpProvider.defaults.headers.common['Authorization'] = "Bearer " + response.access_token
+            }).error(function (response) {
+                  // error handling to some meaningful extent
+                })
+ 
+            var r = $resource('https://api.twitter.com/1.1/search/:action',
+                {action: 'tweets.json',
+                    count: 10,
+                },
+                {
+<span style="line-height: 1.5;">  paginate: {method: 'GET'}</span>
+                })
+ 
+            return r;
         }
-      });
-    }
-    google.setOnLoadCallback(initialize);
-    
-    
-    }
-    
-    */
-  
+      */
     
     
   
-
     /*
-    $scope.init = function() {
-        $http.get("http://ajax.googleapis.com/ajax/services/feed/load", { params: { "v": "1.0", "q": "http://blog.nraboy.com/feed/" } })
-            .success(function(data) {
-                $scope.rssTitle = data.responseData.feed.title;
-                $scope.rssUrl = data.responseData.feed.feedUrl;
-                $scope.rssSiteUrl = data.responseData.feed.link;
-                $scope.entries = data.responseData.feed.entries;
-                console.log($scope.rssTitle);
-            })
-            .error(function(data) {
-                console.log("ERROR: " + data);
-            });
-    }
-    */
-    
-    /*
-   .factory('FeedService',['$http',function($http){
-    return {
-        parseFeed : function(url){
-            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=15&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
-        }
-      }
-   }])
-  // I want to change var to the current $scope.blogs[i].rssFeed during the ng-repeat
-  .controller('FeedCtrl', ['$scope', 'FeedService', function ($scope, Feed) {
-        var url = ['http://feeds.feedburner.com/CssTricks', 'http://feeds.feedburner.com/TheProgrammersParadox', 'http://feeds2.feedburner.com/tympanus'];
-        Feed.parseFeed(url[2]).then(function (res) {
-            $scope.feeds = res.data.responseData.feed.entries;
-         });
-      
-      //}
-                          
-   }])
-   */
-  
 
   
-    /*
-    $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=15&callback=?&q=http://feeds.feedburner.com/CssTricks').success(function(data) {
-      console.log(data);
-      });
     
-      //$scope.rssData = data.feed.entries.title; 
-    */
-    
-    /*
-      window.onload = function any_function_name() {
-        
-      var url = "http://www.joezimjs.com/feed/";
-        
-    google.load("feeds", "1");
-
-    function initialize() {
-      var feed = new google.feeds.Feed(url);
-      feed.load(function(result) {
-        console.log("Go earth");
-        if (!result.error) {
-          var container = document.getElementById("feed");
-          for (var i = 0; i < 1; i++) {
-            var entry = result.feed.entries[i];
-            var div = document.createElement("div");
-            div.appendChild(document.createTextNode(entry.title));
-            div.appendChild(document.createTextNode(entry.link));
-            container.appendChild(div);
-          }
-        }
-      });
-    }
-    google.setOnLoadCallback(initialize);
-    }
-    */
+  
   
     /*
     // W3Schools API
@@ -343,6 +251,9 @@ angular.module('topProgrammingBlogsApp')
     .success(function(tweets){
         $scope.twitterFollowers = tweets;
     }); 
+    
+    
+    
   
     // Racers API  
     $http.get('http://ergast.com/api/f1/2013/driverStandings.json')
@@ -351,8 +262,9 @@ angular.module('topProgrammingBlogsApp')
     });
     */  
   
-    //console.log($scope.awesomeThings);
   
+    // Add new blog to Firebase array
+    
     $scope.addBlog = function() { 
       var getBlog = $scope.newContent;
       var getUrl = $scope.newUrl;
@@ -389,7 +301,6 @@ angular.module('topProgrammingBlogsApp')
       }
     }
 
-    //var rss = $scope.blogs[1].votes;
   
     /*$http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;

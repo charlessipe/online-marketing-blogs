@@ -9,7 +9,7 @@
     <p>Hello {{ userName }}.</p>
     <a href="">View My Favorite Blogs</a>
     <h1>Top Programming Blogs</h1>
-    <p>Top Programming Blogs ranks the top blogs in the programming field by popularity metrics.</p> 
+    <p>Top Programming Blogs ranks the top blogs in the programming field from votes by the community.</p> 
     
     <table class="table table-bordered">
     <thead>
@@ -50,7 +50,8 @@
     </form>
       <p>{{ newContent }}</p>  
       
-    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog</p>
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
+    <p>Twitter Followers = {{followers}}</p>
     <!-- <div id="feed">Google Feed</div> -->
     
     <!--
@@ -72,6 +73,16 @@
       </li>
     </ul>
     -->
+    
+    <!-- Twitter $resource example -->
+    <input type="text" ng-model="searchTerm" placeholder="Search term">
+    <p>{{searchTerm}}</p>
+    <button ng-click="search()">Search</button>
+    <ul ng-repeat="tweet in searchResult.results">
+      <li>{{tweet.text}}</li>
+    </ul>
+
+
 
 
     <ul>
