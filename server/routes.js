@@ -15,6 +15,19 @@ module.exports = function(app) {
   app.get('/api/url-metrics', function(request, response) {
     var query = request.query;
   });
+  
+  /*
+    $http.get('/api/followers/XXX')
+      .success(function(result) {
+        // result.followers is your follower count
+      });
+  */
+  
+  app.get('/api/followers/:id', function(request, response) {
+    var twitterUser = request.params.id;
+    // Lookup twitter followers
+    response.json({ followers: 0 });
+  });
 
   // sample api route
         app.get('/api/moz-data', function(req, res) {

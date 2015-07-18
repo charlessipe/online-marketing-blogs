@@ -12,6 +12,10 @@ angular.module('topProgrammingBlogsApp')
 
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
+    $scope.blogs.$loaded()
+      .then(function(res) {
+        $scope.currentRss = new Array(res.length);
+      });
 
     // synchronize the object with a three-way data binding
     //syncObject.$bindTo($scope, "data");
@@ -119,8 +123,6 @@ angular.module('topProgrammingBlogsApp')
   
     // Google Feed API
   
-   $scope.currentRss = []; 
-  
     $scope.showRss = function(start) {  
    
       //for(var index = 0; index < $scope.blogs.length; index++){
@@ -133,7 +135,7 @@ angular.module('topProgrammingBlogsApp')
         feed.load(function(result) {
           if (!result.error) {
             var entry = result.feed.entries[0];
-            $scope.currentRss.push(entry);
+            $scope.currentRss[start] = entry;
     
             //$scope.currentRss = entry;
             //$scope.rssArray.push = entry; 
