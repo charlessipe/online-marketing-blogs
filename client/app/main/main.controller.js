@@ -2,8 +2,54 @@
 
 angular.module('topProgrammingBlogsApp')
 
+  .factory('TwitterService', function($http, $q){  // factory from Strangemilk
+  
+  var getUser = function(username){
+    var d = $q.defer();
+    $http.get('/twitter/user', {username : username})
+      .success(function(data){
+        return d.resolve(data);
+      })
+      .error(function(error){
+        return d.reject(error);
+      });
+    return d.promise;
+  };
 
-  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource) {
+  return {
+    getUser : getUser
+  }
+})
+
+
+  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService) {
+  
+    /*
+    TwitterService.getUser("jason")
+    .then(function(data){
+        //do work with data
+        $scope.twitterErrors = undefined;
+        $scope.results = data;
+	    //$scope.results = JSON.parse(data.result.userData);
+    })
+    .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+    })
+    */
+    
+    $scope.getUser = function(username){  // HTML from https://github.com/jacobscarter/Twitter-API-with-Node-and-Express
+		console.log("username entered ", username);
+		TwitterService.getUser(username)
+		    .then(function(data){
+		        $scope.twitterErrors = undefined;
+	        	$scope.results = JSON.parse(data.result.userData);
+		    })
+		    .catch(function(error){
+		        console.error('there was an error retrieving data: ', error);
+		        $scope.twitterErrors = error.error;
+		    })
+	}
+    
   
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
@@ -166,10 +212,12 @@ angular.module('topProgrammingBlogsApp')
     //$scope.followerCount = twitterApi.get(followers_count);
   */
   
+    /*
     // Via Stackoverflow http://stackoverflow.com/questions/24222205/angular-js-and-twitter-api-how-can-we-hook-them-up
     var consumerKey = encodeURIComponent('l6ENz8qThSI7btJzL8XeFe5nq')
     var consumerSecret = encodeURIComponent('ihBEIaEtV7gvmPaPtqEYwPIGQLkp9DCW4TWeJiJQMEmkqbe2ZH');
     var credentials = btoa(consumerKey + ':' + consumerSecret);
+    */
   
   /*
   // Twitters OAuth service endpoint
@@ -181,7 +229,7 @@ angular.module('topProgrammingBlogsApp')
   */
   
       // via http://fdietz.github.io/recipes-with-angular-js/consuming-external-services/consuming-jsonp-apis.html
-    
+      /*
       var TwitterAPI = $resource("https://api.twitter.com/1.1/users/show.json?screen_name=charlessipe",
         { callback: "JSON_CALLBACK" },
         { get: { method: "JSONP" }},
@@ -191,13 +239,14 @@ angular.module('topProgrammingBlogsApp')
         $scope.followers = TwitterAPI.get();
         //$scope.followers = 5;
         console.log($scope.followers);
-
+        */
   //https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
   
+    /*
     $scope.search = function() {
     $scope.searchResult = TwitterAPI.get({ q: $scope.searchTerm });
     };
-    
+    */
     
     
     
