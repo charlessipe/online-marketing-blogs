@@ -24,32 +24,37 @@ angular.module('topProgrammingBlogsApp')
 
   .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService) {
   
-    /*
-    TwitterService.getUser("jason")
+    
+    var currentUser = "charlessipe";
+  
+    TwitterService.getUser(currentUser)
     .then(function(data){
         //do work with data
         $scope.twitterErrors = undefined;
-        $scope.results = data;
-	    //$scope.results = JSON.parse(data.result.userData);
+        //$scope.results = data;
+	    $scope.results = JSON.parse(data.result.userData);
     })
     .catch(function(error){
         console.error('there was an error retrieving data: ', error);
     })
-    */
     
-    $scope.getUser = function(username){  // HTML from https://github.com/jacobscarter/Twitter-API-with-Node-and-Express
+    
+    /*
+    $scope.getUser = function(username){  // from https://github.com/jacobscarter/Twitter-API-with-Node-and-Express
 		console.log("username entered ", username);
 		TwitterService.getUser(username)
 		    .then(function(data){
 		        $scope.twitterErrors = undefined;
 	        	$scope.results = JSON.parse(data.result.userData);
+                //$scope.results = JSON.parse(data).result.userData;
+                
 		    })
 		    .catch(function(error){
 		        console.error('there was an error retrieving data: ', error);
 		        $scope.twitterErrors = error.error;
 		    })
 	}
-    
+    */
   
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
