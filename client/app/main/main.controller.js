@@ -4,9 +4,11 @@ angular.module('topProgrammingBlogsApp')
 
   .factory('TwitterService', function($http, $q){  // factory from Strangemilk
   
+  var username = "charlessipe";
+  
   var getUser = function(username){
     var d = $q.defer();
-    $http.get('/twitter/user', {username : username})
+    $http.get('/twitter/user/' + username)
       .success(function(data){
         return d.resolve(data);
       })
@@ -25,14 +27,14 @@ angular.module('topProgrammingBlogsApp')
   .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService) {
   
     
-    var currentUser = "charlessipe";
+    var currentUser = "seahawks";
   
     TwitterService.getUser(currentUser)
     .then(function(data){
         //do work with data
         $scope.twitterErrors = undefined;
-        //$scope.results = data;
-	    $scope.results = JSON.parse(data.result.userData);
+        $scope.results = followers;
+	    //$scope.results = JSON.parse(data.result.followers);
     })
     .catch(function(error){
         console.error('there was an error retrieving data: ', error);

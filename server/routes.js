@@ -5,6 +5,14 @@
 'use strict';
 
 var errors = require('./components/errors');
+var Twitter = require('twitter');
+var client = new Twitter({
+  consumer_key: 'l6ENz8qThSI7btJzL8XeFe5nq',
+  consumer_secret: 'ihBEIaEtV7gvmPaPtqEYwPIGQLkp9DCW4TWeJiJQMEmkqbe2ZH',
+  access_token_key: '824219-RkZ0CHFJUxyBYdiUE8cqWq9kCOUxl76PIn4HEZTe7oK',
+  access_token_secret: 'WWnzLBLSfGVSVUcciZY0xHuKokAADMScTfAITBDWNNg2V'
+});
+
 
 module.exports = function(app) {
 
@@ -23,10 +31,18 @@ module.exports = function(app) {
       });
   */
   
-  app.get('/api/followers/:id', function(request, response) {
-    var twitterUser = request.params.id;
-    // Lookup twitter followers
-    response.json({ followers: 0 });
+  app.get('/twitter/user/:name', function(request, response) {
+    var twitterName = request.params.name;
+    var params = { screen_name: twitterName };
+    client.get('followers/ids', params, function(error, followers, resp){
+      if (!error) {
+        response.json(followers);
+        return;
+        //console.log(followers); 
+      }
+      
+      response.json({ error: error });
+    });
   });
 
   // sample api route
