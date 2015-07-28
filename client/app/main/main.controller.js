@@ -1,16 +1,27 @@
 'use strict';
 
 angular.module('topProgrammingBlogsApp')
+  
+  /*
+  .service('twitterFollowers', function($http, $q){
+    var deferred = $q.defer();
+    $http.get('users/show').then(function(data){
+      deferred.resolve(data);
+    });
+    this.getFollowers = function(){
+      return deferred.promise; 
+    }
+  })
+  */
 
+  
   .factory('TwitterService', function($http, $q){  // factory from Strangemilk
   
-  var username = "charlessipe";
-  
   var getUser = function(username){
-    var d = $q.defer();
+    var d = $q.defer();  //promise
     $http.get('/twitter/user/' + username)
-      .success(function(data){
-        return d.resolve(data);
+      .success(function(followers){
+        return d.resolve(followers);
       })
       .error(function(error){
         return d.reject(error);
@@ -26,14 +37,25 @@ angular.module('topProgrammingBlogsApp')
 
   .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService) {
   
-    
-    var currentUser = "seahawks";
+    /*
+    var promise = twitterFollowers.getFollowers();
+    promise.then(function(data){
+      $scope.follower = data;
+      console.log($scope.follower);
+    });
+    */
   
+    
+    var currentUser = "charlessipe";
+    //var currentUser = $scope.blogs[1].twitterName;
+    
     TwitterService.getUser(currentUser)
-    .then(function(data){
+    .then(function(followers){
         //do work with data
         $scope.twitterErrors = undefined;
-        $scope.results = followers;
+        $scope.follower = followers;
+        console.log(followers);
+        //$scope.follower = followers.followers_count;
 	    //$scope.results = JSON.parse(data.result.followers);
     })
     .catch(function(error){

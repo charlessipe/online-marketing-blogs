@@ -34,11 +34,11 @@ module.exports = function(app) {
   app.get('/twitter/user/:name', function(request, response) {
     var twitterName = request.params.name;
     var params = { screen_name: twitterName };
-    client.get('followers/ids', params, function(error, followers, resp){
+    client.get('users/show', params, function(error, followers, resp){
       if (!error) {
-        response.json(followers);
-        return;
-        //console.log(followers); 
+        response.json(followers.followers_count); 
+        //return resp;  
+        //console.log(followers.followers_count);
       }
       
       response.json({ error: error });
