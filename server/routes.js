@@ -37,7 +37,7 @@ module.exports = function(app) {
     client.get('users/show', params, function(error, followers, resp){
       if (!error) {
         response.json(followers.followers_count); 
-        //return resp;  
+        return;  
         //console.log(followers.followers_count);
       }
       
