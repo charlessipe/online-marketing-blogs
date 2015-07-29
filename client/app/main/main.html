@@ -34,7 +34,7 @@
         <td>{{ blog.mozrank }}</td>
         <td>{{ blog.pageauthority }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
-        <td>{{ blog.twitterFollowers }}</td>
+        <td ng-init="getTwitterCount($index)">{{currentTwitterCount[$index]}} {{ blog.twitterFollowers }}</td>
         <td ng-init="showRss($index)"><a href="{{currentRss[$index].link}}">{{ currentRss[$index].title }}</a> <!-- {{blog.rssFeed}} --> </td>
       </tr>
     </tbody>

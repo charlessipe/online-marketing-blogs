@@ -45,23 +45,34 @@ angular.module('topProgrammingBlogsApp')
     });
     */
   
+    // Twitter API
+    $scope.currentTwitterCount = [];
     
-    var currentUser = "charlessipe";
-    //var currentUser = $scope.blogs[1].twitterName;
+    //$scope.getTwitterCount = function(start) { 
     
-    TwitterService.getUser(currentUser)
+   
+    $scope.getTwitterCount = function(start) {
+  
+    var twitterHandle = $scope.blogs[start].twitterName;
+    //var currentUser = "@chriscoyier";
+    
+    TwitterService.getUser(twitterHandle)
     .then(function(followers){
         //do work with data
         $scope.twitterErrors = undefined;
         $scope.follower = followers;
         console.log(followers);
+        //$scope.currentTwitterCount.push(followers);
+        $scope.currentTwitterCount[start] = followers;
         //$scope.follower = followers.followers_count;
 	    //$scope.results = JSON.parse(data.result.followers);
     })
     .catch(function(error){
         console.error('there was an error retrieving data: ', error);
     })
+    }
     
+    console.log($scope.currentTwitterCount);
     
     /*
     $scope.getUser = function(username){  // from https://github.com/jacobscarter/Twitter-API-with-Node-and-Express
@@ -90,7 +101,11 @@ angular.module('topProgrammingBlogsApp')
     $scope.blogs.$loaded()
       .then(function(res) {
         $scope.currentRss = new Array(res.length);
-      });
+        
+      }).then(function(res){
+        $scope.currentTwitterCount = new Array(res.length);
+      })
+      ;
 
     // synchronize the object with a three-way data binding
     //syncObject.$bindTo($scope, "data");

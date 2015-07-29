@@ -30,7 +30,7 @@ module.exports = function(app) {
         // result.followers is your follower count
       });
   */
-  
+ 
   app.get('/twitter/user/:name', function(request, response) {
     var twitterName = request.params.name;
     var params = { screen_name: twitterName };
