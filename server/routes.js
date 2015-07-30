@@ -31,6 +31,7 @@ module.exports = function(app) {
       });
   */
  
+  // Twitter Restful API
   app.get('/twitter/user/:name', function(request, response) {
     var twitterName = request.params.name;
     var params = { screen_name: twitterName };
@@ -44,6 +45,36 @@ module.exports = function(app) {
       response.json({ error: error });
     });
   });
+  
+  // Mozscape API
+  var Mozscape = require('mozscape').Mozscape;
+  
+  var moz = new Mozscape('mozscape-07bc82a137', 'cd446f269d9e9192dbf0220a549e8001');
+  
+  app.get('/api/url-metrics/:name', function(req, res) {
+    var mozUrl = req.params.name;
+    moz.urlMetrics(mozUrl, ['page_authority', 'url', 'external_links', 'mozRank'], function(err, res) {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    //res.json(urlData);
+    //return;
+    console.log(res);
+  });
+    //var query = request.query;
+  });
+
+  /*
+  moz.urlMetrics(mozUrl, ['page_authority', 'url', 'links', 'mozRank'], function(err, res) {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(res);
+  });
+*/
 
   // sample api route
         app.get('/api/moz-data', function(req, res) {

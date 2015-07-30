@@ -87,10 +87,6 @@
         </div>
     </div>
     -->
-
-    <p>Twitter Followers = {{follower}}</p>
-
-    <!-- <div id="feed">Google Feed</div> -->
     
     <!--
     <ul>
@@ -111,17 +107,6 @@
       </li>
     </ul>
     -->
-    
-    <!-- Twitter $resource example -->
-    <input type="text" ng-model="searchTerm" placeholder="Search term">
-    <p>{{searchTerm}}</p>
-    <button ng-click="search()">Search</button>
-    <ul ng-repeat="tweet in searchResult.results">
-      <li>{{tweet.text}}</li>
-    </ul>
-
-
-
 
     <ul>
       <li ng-repeat="data in siteData">
@@ -130,6 +115,8 @@
         {{ data.upa }}
       </li>
       <li>MozData goes here</li>
+      
+      {{mozData}}
     </ul>
 
     <p>{{ mozData.umrp }} </p> 

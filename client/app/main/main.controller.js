@@ -2,19 +2,6 @@
 
 angular.module('topProgrammingBlogsApp')
   
-  /*
-  .service('twitterFollowers', function($http, $q){
-    var deferred = $q.defer();
-    $http.get('users/show').then(function(data){
-      deferred.resolve(data);
-    });
-    this.getFollowers = function(){
-      return deferred.promise; 
-    }
-  })
-  */
-
-  
   .factory('TwitterService', function($http, $q){  // factory from Strangemilk
   
   var getUser = function(username){
@@ -33,64 +20,77 @@ angular.module('topProgrammingBlogsApp')
     getUser : getUser
   }
 })
-
-
-  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService) {
   
-    /*
-    var promise = twitterFollowers.getFollowers();
-    promise.then(function(data){
-      $scope.follower = data;
-      console.log($scope.follower);
-    });
-    */
+
+  .factory('MozService', function($http, $q){  // factory from Strangemilk
+  
+  
+  var getMoz = function(mozUrl){
+    var d = $q.defer();  //promise
+    $http.get('/api/url-metrics/' + mozUrl)
+      .success(function(urlData){
+        return d.resolve(urlData);
+      })
+      .error(function(error){
+        return d.reject(error);
+      });
+    return d.promise;
+  };
+
+  return {
+    getMoz : getMoz
+  }
+})
+ 
+
+
+  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService, MozService) {
   
     // Twitter API
     $scope.currentTwitterCount = [];
-    
-    //$scope.getTwitterCount = function(start) { 
-    
    
     $scope.getTwitterCount = function(start) {
-  
-    var twitterHandle = $scope.blogs[start].twitterName;
-    //var currentUser = "@chriscoyier";
+      var twitterHandle = $scope.blogs[start].twitterName;
     
-    TwitterService.getUser(twitterHandle)
-    .then(function(followers){
+      TwitterService.getUser(twitterHandle)
+        .then(function(followers){
         //do work with data
-        $scope.twitterErrors = undefined;
-        $scope.follower = followers;
-        console.log(followers);
+          $scope.twitterErrors = undefined;
+          $scope.follower = followers;
+        //console.log(followers);
         //$scope.currentTwitterCount.push(followers);
-        $scope.currentTwitterCount[start] = followers;
-        //$scope.follower = followers.followers_count;
-	    //$scope.results = JSON.parse(data.result.followers);
-    })
-    .catch(function(error){
+          $scope.currentTwitterCount[start] = followers;
+      })
+        .catch(function(error){
         console.error('there was an error retrieving data: ', error);
-    })
+      })
     }
     
-    console.log($scope.currentTwitterCount);
+    //console.log($scope.currentTwitterCount);
+   
     
-    /*
-    $scope.getUser = function(username){  // from https://github.com/jacobscarter/Twitter-API-with-Node-and-Express
-		console.log("username entered ", username);
-		TwitterService.getUser(username)
-		    .then(function(data){
-		        $scope.twitterErrors = undefined;
-	        	$scope.results = JSON.parse(data.result.userData);
-                //$scope.results = JSON.parse(data).result.userData;
-                
-		    })
-		    .catch(function(error){
-		        console.error('there was an error retrieving data: ', error);
-		        $scope.twitterErrors = error.error;
-		    })
-	}
-    */
+    var mozUrl = [
+      'tympanus.net%2fcodrops',
+      'www.codementor.io%2fblog/'
+    ];
+    
+    //for(i=0; i<mozUrl.length; i++){
   
+    MozService.getMoz(mozUrl[0])
+        .then(function(urlData){
+        //do work with data
+          $scope.twitterErrors = undefined;
+          $scope.mozData = urlData;
+          console.log(urlData);
+        
+      })
+        .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+      })
+    
+    //}
+    
+    
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
     // download the data into a local object
@@ -104,8 +104,7 @@ angular.module('topProgrammingBlogsApp')
         
       }).then(function(res){
         $scope.currentTwitterCount = new Array(res.length);
-      })
-      ;
+      });
 
     // synchronize the object with a three-way data binding
     //syncObject.$bindTo($scope, "data");
@@ -196,7 +195,7 @@ angular.module('topProgrammingBlogsApp')
     // this will never print antying sicne siteData at this point is still nil.  It has not been set
     // by the success callback.
      console.log($scope.siteData);
-     /*
+     
   
     /*
     // /api/url-metrics/????
@@ -210,6 +209,8 @@ angular.module('topProgrammingBlogsApp')
     console.log($scope.mozData);  
     */
 
+    
+  
   
     // Google Feed API
   
@@ -240,115 +241,12 @@ angular.module('topProgrammingBlogsApp')
     }
     
     //$scope.showRss();
-    
-    
-    
-    
-      // Twitter API
-    
-      // GET users/show
-    /*
-   var twitterApi = $resource("https://api.twitter.com/1.1/users/show.json?screen_name=charlessipe",
-        { callback: "JSON_CALLBACK" },
-        { get: { method: "JSONP" }});
-        // {authentication: }
-
-    //$scope.followerCount = twitterApi.get(followers_count);
-  */
-  
-    /*
-    // Via Stackoverflow http://stackoverflow.com/questions/24222205/angular-js-and-twitter-api-how-can-we-hook-them-up
-    var consumerKey = encodeURIComponent('l6ENz8qThSI7btJzL8XeFe5nq')
-    var consumerSecret = encodeURIComponent('ihBEIaEtV7gvmPaPtqEYwPIGQLkp9DCW4TWeJiJQMEmkqbe2ZH');
-    var credentials = btoa(consumerKey + ':' + consumerSecret);
-    */
-  
-  /*
-  // Twitters OAuth service endpoint
-  var twitterOauthEndpoint = $http.post(
-    'https://api.twitter.com/oauth2/token'
-    , "grant_type=client_credentials"
-    , {headers: {'Authorization': 'Basic ' + credentials, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}}
-  );
-  */
-  
-      // via http://fdietz.github.io/recipes-with-angular-js/consuming-external-services/consuming-jsonp-apis.html
-      /*
-      var TwitterAPI = $resource("https://api.twitter.com/1.1/users/show.json?screen_name=charlessipe",
-        { callback: "JSON_CALLBACK" },
-        { get: { method: "JSONP" }},
-        { headers: {'Authorization': 'Basic ' + credentials, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}}                         
-        );
-  
-        $scope.followers = TwitterAPI.get();
-        //$scope.followers = 5;
-        console.log($scope.followers);
-        */
-  //https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
-  
-    /*
-    $scope.search = function() {
-    $scope.searchResult = TwitterAPI.get({ q: $scope.searchTerm });
-    };
-    */
-    
-    
-    
-        // Twitter Beautiful Bytes 
-    
-        /*
-        .factory('twitter', function ($resource, $http) {
-            var consumerKey = encodeURIComponent('l6ENz8qThSI7btJzL8XeFe5nq')
-            var consumerSecret = encodeURIComponent('ihBEIaEtV7gvmPaPtqEYwPIGQLkp9DCW4TWeJiJQMEmkqbe2ZH')
-            var credentials = Base64.encode(consumerKey + ':' + consumerSecret)
-            // Twitters OAuth service endpoint
-            var twitterOauthEndpoint = $http.post(
-                'https://api.twitter.com/oauth2/token'
-                , "grant_type=client_credentials"
-                , {headers: {'Authorization': 'Basic ' + credentials, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}}
-            )
-            twitterOauthEndpoint.success(function (response) {
-                // a successful response will return
-                // the "bearer" token which is registered
-                // to the $httpProvider
-                serviceModule.$httpProvider.defaults.headers.common['Authorization'] = "Bearer " + response.access_token
-            }).error(function (response) {
-                  // error handling to some meaningful extent
-                })
  
-            var r = $resource('https://api.twitter.com/1.1/search/:action',
-                {action: 'tweets.json',
-                    count: 10,
-                },
-                {
-<span style="line-height: 1.5;">  paginate: {method: 'GET'}</span>
-                })
- 
-            return r;
-        }
-      */
     
-    
-  
-    /*
-
-  
-    
-  
-  
     /*
     // W3Schools API
     $http.get("http://www.w3schools.com/angular/customers.php")
   .success(function (response) {$scope.names = response.records;});
-
-    // Twitter API
-    $http.jsonp('https://api.twitter.com/1.1/followers/list.json?cursor=-1&screen_name=twitterdev&skip_status=true&include_user_entities=false?callback=JSON_CALLBACK')
-    .success(function(tweets){
-        $scope.twitterFollowers = tweets;
-    }); 
-    
-    
-    
   
     // Racers API  
     $http.get('http://ergast.com/api/f1/2013/driverStandings.json')
