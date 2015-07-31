@@ -46,25 +46,29 @@ module.exports = function(app) {
     });
   });
   
+  
   // Mozscape API
+  
   var Mozscape = require('mozscape').Mozscape;
   
   var moz = new Mozscape('mozscape-07bc82a137', 'cd446f269d9e9192dbf0220a549e8001');
   
   app.get('/api/url-metrics/:name', function(req, res) {
     var mozUrl = req.params.name;
-    moz.urlMetrics(mozUrl, ['page_authority', 'url', 'external_links', 'mozRank'], function(err, res) {
+    moz.urlMetrics(mozUrl, ['page_authority', 'url', 'external_links', 'mozRank'], function(err, linkData) {
     if (err) {
         console.log(err);
         return;
     }
-    //res.json(urlData);
+    res.json(linkData);
     //return;
     console.log(res);
   });
     //var query = request.query;
+    
   });
 
+  
   /*
   moz.urlMetrics(mozUrl, ['page_authority', 'url', 'links', 'mozRank'], function(err, res) {
     if (err) {
@@ -76,6 +80,8 @@ module.exports = function(app) {
   });
 */
 
+  
+  
   // sample api route
         app.get('/api/moz-data', function(req, res) {
             // use mongoose to get all nerds in the database

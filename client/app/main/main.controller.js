@@ -28,8 +28,8 @@ angular.module('topProgrammingBlogsApp')
   var getMoz = function(mozUrl){
     var d = $q.defer();  //promise
     $http.get('/api/url-metrics/' + mozUrl)
-      .success(function(urlData){
-        return d.resolve(urlData);
+      .success(function(res){
+        return d.resolve(res);
       })
       .error(function(error){
         return d.reject(error);
@@ -77,11 +77,11 @@ angular.module('topProgrammingBlogsApp')
     //for(i=0; i<mozUrl.length; i++){
   
     MozService.getMoz(mozUrl[0])
-        .then(function(urlData){
+        .then(function(linkData){
         //do work with data
           $scope.twitterErrors = undefined;
-          $scope.mozData = urlData;
-          console.log(urlData);
+          $scope.mozData = linkData;
+          //console.log(res);
         
       })
         .catch(function(error){
@@ -89,6 +89,7 @@ angular.module('topProgrammingBlogsApp')
       })
     
     //}
+    
     
     
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
