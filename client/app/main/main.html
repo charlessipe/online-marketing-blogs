@@ -26,12 +26,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="blog in blogs">
+      <tr ng-repeat="blog in blogs | orderBy: '-blogScore'">
         <td>{{$index+1}}</td>
         <td><a href="{{ blog.url }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up" data-ng-click="addVote($index)"></span> {{ blog.votes.length }}</td>
-        <td ng-init="getMozData($index)">{{ blog.linkingsites }}</td>
-        <td ng-init="updateMozRank($index)">{{ blog.mozrank | number:2 }}</td>
+        <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
+        <td ng-init="updateBlogScore($index)">{{ blog.mozrank | number:2 }}</td>
         <td>{{ blog.pageauthority | number:2 }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
         <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>

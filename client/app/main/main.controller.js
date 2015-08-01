@@ -73,6 +73,30 @@ angular.module('topProgrammingBlogsApp')
       })
     }
     
+    $scope.updateBlogScore = function(start) {
+      
+      var votesValue = $scope.blogs[start].votes.length;
+      var linkingsitesValue = $scope.blogs[start].linkingsites;
+      var mozrankValue = $scope.blogs[start].mozrank;
+      var pageauthorityValue = $scope.blogs[start].pageauthority;
+      var twitterValue = $scope.blogs[start].twitterFollowers;
+      
+      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
+      
+      console.log(BlogScoreTotal);
+      
+      var blogScoreItem = $scope.blogs[start]; 
+      blogScoreItem.blogScore = BlogScoreTotal;
+      $scope.blogs.$save(blogScoreItem);
+      
+      
+      //console.log($scope.blogs[start].votes.length);
+      //console.log($scope.blogs[start].linkingsites);
+      //console.log($scope.blogs[start].mozrank);
+      //console.log($scope.blogs[start].pageauthority);
+    }
+    
+    
     //console.log($scope.currentTwitterCount);
    
     
