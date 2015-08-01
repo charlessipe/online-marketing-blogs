@@ -171,6 +171,8 @@ angular.module('topProgrammingBlogsApp')
   
     // Google Feed API
   
+    //$scope.currentRss = [];
+  
     $scope.showRss = function(start) {  
    
       //for(var index = 0; index < $scope.blogs.length; index++){
@@ -184,6 +186,15 @@ angular.module('topProgrammingBlogsApp')
           if (!result.error) {
             var entry = result.feed.entries[0];
             $scope.currentRss[start] = entry;
+            
+            
+            $scope.updateRss = function() {
+            var rssItem = $scope.blogs[start];
+            rssItem.rssTitle = $scope.currentRss[start].title;
+            rssItem.rssUrl = $scope.currentRss[start].link;
+            $scope.blogs.$save(rssItem);
+            }
+            $scope.updateRss();
     
             //$scope.currentRss = entry;
             //$scope.rssArray.push = entry; 
@@ -232,7 +243,8 @@ angular.module('topProgrammingBlogsApp')
       var getRss = $scope.newRss;
       var newBlog = {
         name: getBlog,
-        url: getUrl, 
+        url: getUrl,
+        blogurl: "https://unsplash.com/",
         pageauthority: 50, 
         linkingsites: 25,
         mozrank: 3,
@@ -242,7 +254,9 @@ angular.module('topProgrammingBlogsApp')
         twitterUrl: getTwitUrl,
         twitterFollowers: 100,
         rssFeed: getRss,
-        blogScore: 100
+        blogScore: 100,
+        rssTitle: "Article Title Here",
+        rssUrl: "http://www.google.com/"
       };
 
       $scope.blogs.$add(newBlog);
