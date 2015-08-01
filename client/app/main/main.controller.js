@@ -24,7 +24,6 @@ angular.module('topProgrammingBlogsApp')
 
   .factory('MozService', function($http, $q){  // factory from Strangemilk
   
-  
   var getMoz = function(mozUrl){
     var d = $q.defer();  //promise
     $http.get('/api/url-metrics/' + mozUrl)
@@ -60,6 +59,14 @@ angular.module('topProgrammingBlogsApp')
         //console.log(followers);
         //$scope.currentTwitterCount.push(followers);
           $scope.currentTwitterCount[start] = followers;
+        
+        $scope.updateTwitter = function() {
+          var item = $scope.blogs[start];
+          item.twitterFollowers = $scope.follower;
+          $scope.blogs.$save(item);
+        }
+        $scope.updateTwitter();
+        
       })
         .catch(function(error){
         console.error('there was an error retrieving data: ', error);
@@ -69,26 +76,40 @@ angular.module('topProgrammingBlogsApp')
     //console.log($scope.currentTwitterCount);
    
     
-    var mozUrl = [
-      'tympanus.net%2fcodrops',
-      'www.codementor.io%2fblog/'
-    ];
-    
-    //for(i=0; i<mozUrl.length; i++){
+    //Only need to execute function to update Moz data, there are API rate limits
+    /*
+    $scope.getMozData = function(start) {
   
-    MozService.getMoz(mozUrl[0])
+    var mozUrl = $scope.blogs[start].url;
+  
+    MozService.getMoz(mozUrl)
         .then(function(linkData){
         //do work with data
           $scope.twitterErrors = undefined;
           $scope.mozData = linkData;
           //console.log(res);
-        
+      
+      $scope.updateMoz = function(){
+        var item = $scope.blogs[start]; 
+        item.mozrank = $scope.mozData.umrp;
+        item.pageauthority = $scope.mozData.upa;
+        item.linkingsites = $scope.mozData.ueid;
+        $scope.blogs.$save(item);  
+      }
+      
+      $scope.updateMoz();
+      //Only need to execute function to update Moz data, there are API rate limits
+      
+      
       })
         .catch(function(error){
         console.error('there was an error retrieving data: ', error);
       })
     
-    //}
+    }
+    
+    */
+    
     
     
     
@@ -102,8 +123,6 @@ angular.module('topProgrammingBlogsApp')
     $scope.blogs.$loaded()
       .then(function(res) {
         $scope.currentRss = new Array(res.length);
-        
-      }).then(function(res){
         $scope.currentTwitterCount = new Array(res.length);
       });
 
@@ -123,93 +142,6 @@ angular.module('topProgrammingBlogsApp')
       }
     });
   
-    /*
-    
-    // encode64() was written by Tyler Akins and has been placed in the
-    // public domain.  It would be nice if you left this header intact.
-    // Base64 code from Tyler Akins -- http://rumkin.com
-    var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-  
-    function encode64(input) {
-	var output = "";
-	var chr1, chr2, chr3;
-	var enc1, enc2, enc3, enc4;
-	var i = 0;
-
-	while (i < input.length) {
-		chr1 = input.charCodeAt(i++);
-		chr2 = input.charCodeAt(i++);
-		chr3 = input.charCodeAt(i++);
-
-		enc1 = chr1 >> 2;
-		enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-		enc4 = chr3 & 63;
-
-		if (isNaN(chr2)) {
-			enc3 = enc4 = 64;
-		} else if (isNaN(chr3)) {
-			enc4 = 64;
-		}
-
-		output += (keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4));
-   }
-   
-   return output.toString();
-    }  
-  
-    // Encode signature
-    var accessId = "mozscape-07bc82a137";
-    var secretKey = "cd446f269d9e9192dbf0220a549e8001";
-    var apiExpires = moment().unix() + 300;
-    console.log(apiExpires);
-    
-    //var stringToSign = accessId+"<br>"+apiExpires;
-    var message = accessId + "\n" + apiExpires;
-  
-    //hmac sha1 hash
-    //var hash = CryptoJS.SHA1(stringToSign,secretKey);
-    var hmacString = Crypto.HMAC(Crypto.SHA1, message, secretKey, { asString: true });
-    //console.log(hash);
-    
-    //urlencode and 64bit encode
-    //var signatureEncoded = encodeURIComponent(btoa(hash));
-    var signature = encode64(hmacString);
-    //console.log(signatureEncoded);
-    console.log(signature);
-    
-    var currentUrl = "codebetter.com";
-  
-    // Mozscape API moz.com%2fblog
-    //var callbackString = '?callback=JSON_CALLBACK&data='
-    var mozUri = 'http://lsapi.seomoz.com/linkscape/url-metrics/codebetter.com?Cols=34359754788&AccessID=mozscape-07bc82a137&Expires='+apiExpires+'&Signature='+signature
-    
-    $http.jsonp(mozUri)
-      .success(function(siteData) {
-        console.log('success', siteData);
-        $scope.siteData = siteData;
-      })
-      .error(function(err) {
-        console.log(err);
-      })
-     
-    // this will never print antying sicne siteData at this point is still nil.  It has not been set
-    // by the success callback.
-     console.log($scope.siteData);
-     
-  
-    /*
-    // /api/url-metrics/????
-    $http.jsonp('http://lsapi.seomoz.com/linkscape/url-metrics/'+currentUrl+'?Cols=34359754788&AccessID=mozscape-07bc82a137&Expires='+apiExpires+'&Signature='+signature).then(function(siteData) {
-      $scope.mozData = siteData;
-    })
-      
-    //.error(function(err) { $scope.mozData = err; })
-  
-  
-    console.log($scope.mozData);  
-    */
-
     
   
   
@@ -254,8 +186,17 @@ angular.module('topProgrammingBlogsApp')
     .success(function(racers){
         $scope.racerNames = racers;
     });
-    */  
-  
+    */
+    
+    /*
+    $scope.updateMozRank = function(start) {
+    
+      var oldMozRank = $scope.blogs[start].mozrank;
+      console.log($scope.blogs[start].mozrank);
+      //var oldMozRank = $scope.mozData.mozrank;
+    }
+    $scope.blogs.$save($scope.updateMozRank);  
+    */
   
     // Add new blog to Firebase array
     

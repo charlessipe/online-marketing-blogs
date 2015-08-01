@@ -17,9 +17,9 @@
         <th>Number</th>
         <th width="15%">Blog Title</th>
         <th><span class="glyphicon glyphicon-sort"></span> Votes</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Linking Sites</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Page Authority</th>
+        <th><span class="glyphicon glyphicon-sort"></span> External Links</th>
         <th><span class="glyphicon glyphicon-sort"></span> Moz Rank</th>
+        <th><span class="glyphicon glyphicon-sort"></span> Page Authority</th>
         <th>Twitter Name</th>
         <th><span class="glyphicon glyphicon-sort"></span> Followers</th>
         <th>Lastest Article</th>
@@ -30,11 +30,11 @@
         <td>{{$index+1}}</td>
         <td><a href="{{ blog.url }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up" data-ng-click="addVote($index)"></span> {{ blog.votes.length }}</td>
-        <td>{{ blog.linkingsites }}</td>
-        <td>{{ blog.mozrank }}</td>
-        <td>{{ blog.pageauthority }}</td>
+        <td ng-init="getMozData($index)">{{ blog.linkingsites }}</td>
+        <td ng-init="updateMozRank($index)">{{ blog.mozrank | number:2 }}</td>
+        <td>{{ blog.pageauthority | number:2 }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
-        <td ng-init="getTwitterCount($index)">{{currentTwitterCount[$index]}}</td>
+        <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
         <td ng-init="showRss($index)"><a href="{{currentRss[$index].link}}">{{ currentRss[$index].title }}</a> <!-- {{blog.rssFeed}} --> </td>
       </tr>
     </tbody>
@@ -108,6 +108,7 @@
     </ul>
     -->
 
+    <!--
     <ul>
       <li ng-repeat="data in siteData">
         {{ data.uu }} 
@@ -119,9 +120,11 @@
       {{mozData}}
     </ul>
 
-    <p>{{ mozData.umrp }} </p> 
-
-
+    <p>URL: {{mozData.uu }} </p>
+    <p>MozRank: {{ mozData.umrp }} </p> 
+    <p>External Links: {{ mozData.ueid }} </p>
+    <p>Page Authority: {{ mozData.upa}}</p>
+    -->
     
     
     
