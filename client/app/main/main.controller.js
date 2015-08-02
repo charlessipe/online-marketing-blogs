@@ -100,7 +100,7 @@ angular.module('topProgrammingBlogsApp')
     //console.log($scope.currentTwitterCount);
    
     
-    //Only need to execute function to update Moz data, there are API rate limits
+    //Only need to execute function to update Moz data, there are API rate limits, Turn this on when a new blog added
     /*
     $scope.getMozData = function(start) {
   
@@ -131,8 +131,8 @@ angular.module('topProgrammingBlogsApp')
       })
     
     }
-    
     */
+    
     
     
     
