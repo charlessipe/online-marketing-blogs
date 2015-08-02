@@ -264,8 +264,9 @@ angular.module('topProgrammingBlogsApp')
     }
     
     $scope.addVote = function(number) {
-      if($scope.blogs[number].votes.indexOf($scope.currentUid) < 0) {
-        var blog = $scope.blogs[number];
+      //console.log(number);
+      if(number.votes.indexOf($scope.currentUid) < 0) {
+        var blog = number;
         blog.votes.push($scope.currentUid);
         $scope.blogs.$save(blog);
       }
