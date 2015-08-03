@@ -245,9 +245,9 @@ angular.module('topProgrammingBlogsApp')
         name: getBlog,
         url: getUrl,
         blogurl: "https://unsplash.com/",
-        pageauthority: 50, 
-        linkingsites: 25,
-        mozrank: 3,
+        pageauthority: 0, 
+        linkingsites: 0,
+        mozrank: 0,
         pagerank: 5,
         votes: [1],
         twitterName: getTwitter,
@@ -255,7 +255,7 @@ angular.module('topProgrammingBlogsApp')
         twitterFollowers: 100,
         rssFeed: getRss,
         blogScore: 100,
-        rssTitle: "Article Title Here",
+        rssTitle: "Newly Submitted Blog",
         rssUrl: "http://www.google.com/"
       };
 
@@ -275,11 +275,6 @@ angular.module('topProgrammingBlogsApp')
       }
     }
 
-  
-    /*$http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    }); 
-    */
 
   });
 

@@ -4,8 +4,8 @@
 <div class="container"> <!-- ng-controller="FeedCtrl"-->
   <div class="row">
     <div class="col-lg-12">
-    <a href="">Log In To Vote</a><br> 
-    <a href="">Log Out</a>
+    <!--<a href="">Log In To Vote</a><br> 
+    <a href="">Log Out</a> -->
     <p>Hello {{ userName }}.</p>
     <a href="">View My Favorite Blogs</a>
     <h1>Top Programming Blogs</h1>
@@ -17,9 +17,9 @@
         <th>Number</th>
         <th width="15%">Blog Title</th>
         <th><span class="glyphicon glyphicon-sort"></span> Votes</th>
-        <th><span class="glyphicon glyphicon-sort"></span> External Links</th>
         <th><span class="glyphicon glyphicon-sort"></span> Moz Rank</th>
         <th><span class="glyphicon glyphicon-sort"></span> Page Authority</th>
+        <th><span class="glyphicon glyphicon-sort"></span> External Links</th>
         <th>Twitter Name</th>
         <th><span class="glyphicon glyphicon-sort"></span> Followers</th>
         <th>Lastest Article</th>
@@ -30,9 +30,9 @@
         <td>{{$index+1}}</td>
         <td><a href="{{ blog.url }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up" data-ng-click="addVote(blog)"></span> {{ blog.votes.length }}</td>
-        <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
         <td ng-init="updateBlogScore($index)">{{ blog.mozrank | number:2 }}</td>
         <td>{{ blog.pageauthority | number:2 }}</td>
+        <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
         <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
         <td ng-init="showRss($index)"><a href="{{blog.rssUrl}}">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
@@ -40,6 +40,7 @@
     </tbody>
     </table>
     
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
     <form>
       <span>Title: </span> <input type="text" ng-model="newContent" /></input>
       <span>URL: </span> <input type="text" ng-model="newUrl" /></input>
@@ -50,7 +51,6 @@
     </form>
       <p>{{ newContent }}</p>  
       
-    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
     
     <!--
     <p>Twitter username test:</p>
