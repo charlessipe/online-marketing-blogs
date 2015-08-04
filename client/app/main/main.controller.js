@@ -85,8 +85,6 @@ angular.module('topProgrammingBlogsApp')
       
       var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
       
-      console.log(BlogScoreTotal);
-      
       var blogScoreItem = $scope.blogs[start]; 
       blogScoreItem.blogScore = BlogScoreTotal;
       $scope.blogs.$save(blogScoreItem);
