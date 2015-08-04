@@ -7,7 +7,6 @@
     <!--<a href="">Log In To Vote</a><br> 
     <a href="">Log Out</a> -->
     <p>Hello {{ userName }}.</p>
-    <a href="">View My Favorite Blogs</a>
     <h1>Top Programming Blogs</h1>
     <p>Top Programming Blogs ranks the top blogs in the programming field from votes by the community.</p> 
     
@@ -15,7 +14,7 @@
     <thead>
       <tr>
         <th>Number</th>
-        <th width="15%">Blog Title</th>
+        <th width="10%">Blog Title</th>
         <th><span class="glyphicon glyphicon-sort"></span> Votes</th>
         <th><span class="glyphicon glyphicon-sort"></span> Moz Rank</th>
         <th><span class="glyphicon glyphicon-sort"></span> Page Authority</th>
@@ -26,9 +25,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="blog in blogs | orderBy: '-blogScore'">
+      <tr ng-repeat="blog in blogs | orderBy: '-blogScore' | filter:filters">
         <td>{{$index+1}}</td>
-        <td><a href="{{ blog.url }}">{{ blog.name }}</a></td>
+        <td><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up" data-ng-click="addVote(blog)"></span> {{ blog.votes.length }}</td>
         <td ng-init="updateBlogScore($index)">{{ blog.mozrank | number:2 }}</td>
         <td>{{ blog.pageauthority | number:2 }}</td>
@@ -36,6 +35,8 @@
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
         <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
         <td ng-init="showRss($index)"><a href="{{blog.rssUrl}}">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
+        <a ng-click="filters.votes = currentUid" href="">View My Favorite Blogs</a>
+        <br><a ng-click="filters = undefined" href="">View All Blogs</a>
       </tr>
     </tbody>
     </table>
@@ -43,8 +44,9 @@
     <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
     <form>
       <span>Title: </span> <input type="text" ng-model="newContent" /></input>
-      <span>URL: </span> <input type="text" ng-model="newUrl" /></input>
-      <span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input>
+      <span>Main URL:</span> <input type="text" ng-model="newMainUrl" /></input>
+      <span>Moz URL: </span> <input type="text" ng-model="newUrl" /></input>
+      <br><span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input>
       <span>Twitter URL: </span> <input type="text" ng-model="newTwitUrl" /></input>
       <span>RSS Feed: </span> <input type="text" ng-model="newRss" /></input>
       <button type="submit" data-ng-click="addBlog()">Add Blog</button>

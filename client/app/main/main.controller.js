@@ -45,6 +45,8 @@ angular.module('topProgrammingBlogsApp')
 
   .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService, MozService) {
   
+   
+  
     // Twitter API
     $scope.currentTwitterCount = [];
    
@@ -238,6 +240,7 @@ angular.module('topProgrammingBlogsApp')
     $scope.addBlog = function() { 
       var getBlog = $scope.newContent;
       var getUrl = $scope.newUrl;
+      var getMainUrl = $scope.newMainUrl;
       var getTwitter = $scope.newTwitter;
       var getTwitUrl = $scope.newTwitUrl;
       var getRss = $scope.newRss;
@@ -256,7 +259,8 @@ angular.module('topProgrammingBlogsApp')
         rssFeed: getRss,
         blogScore: 100,
         rssTitle: "Newly Submitted Blog",
-        rssUrl: "http://www.google.com/"
+        rssUrl: "http://www.google.com/",
+        mainUrl: getMainUrl
       };
 
       $scope.blogs.$add(newBlog);
@@ -275,6 +279,7 @@ angular.module('topProgrammingBlogsApp')
       }
     }
 
+    //$scope.filters = {presentUid: currentUid};
 
   });
 
