@@ -279,6 +279,7 @@ angular.module('topProgrammingBlogsApp')
       }
     }
 
+    $scope.sortBy = '-blogScore';
     //$scope.filters = {presentUid: currentUid};
 
   });

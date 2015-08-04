@@ -15,17 +15,17 @@
       <tr>
         <th>Number</th>
         <th width="10%">Blog Title</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Votes</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Moz Rank</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Page Authority</th>
-        <th><span class="glyphicon glyphicon-sort"></span> External Links</th>
+        <th><span ng-click="sortBy = '-votes.length'" class="glyphicon glyphicon-sort"></span> Votes</th>
+        <th><span ng-click="sortBy = '-mozrank'" class="glyphicon glyphicon-sort"></span> Moz Rank</th>
+        <th><span ng-click="sortBy = '-pageauthority'" class="glyphicon glyphicon-sort"></span> Page Authority</th>
+        <th><span ng-click="sortBy = '-linkingsites'" class="glyphicon glyphicon-sort"></span> External Links</th>
         <th>Twitter Name</th>
-        <th><span class="glyphicon glyphicon-sort"></span> Followers</th>
+        <th><span ng-click="sortBy = '-twitterFollowers'" class="glyphicon glyphicon-sort"></span> Followers</th>
         <th>Lastest Article</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="blog in blogs | orderBy: '-blogScore' | filter:filters">
+      <tr ng-repeat="blog in blogs | orderBy: sortBy | filter:filters">
         <td>{{$index+1}}</td>
         <td><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up" data-ng-click="addVote(blog)"></span> {{ blog.votes.length }}</td>
@@ -35,8 +35,8 @@
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
         <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
         <td ng-init="showRss($index)"><a href="{{blog.rssUrl}}">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
-        <a ng-click="filters.votes = currentUid" href="">View My Favorite Blogs</a>
-        <br><a ng-click="filters = undefined" href="">View All Blogs</a>
+        <button ng-click="filters.votes = currentUid" type="button" class="btn btn-primary">View My Favorite Blogs</button>
+        <button ng-click="filters = undefined" type="button" class="btn btn-info">View All Blogs</button>
       </tr>
     </tbody>
     </table>
