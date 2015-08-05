@@ -8,4 +8,13 @@ angular.module('topProgrammingBlogsApp')
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       });
+  
+    $stateProvider
+      .state('about', {  // About page
+        url: '/about',
+        templateUrl: 'app/about.html',
+        controller: 'MainCtrl',
+      });
+
+  
   });
