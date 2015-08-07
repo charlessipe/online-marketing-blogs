@@ -18,7 +18,8 @@
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1",
     "twitter": "~1.2.5",
-    "gzippo": "~0.2.0"
+    "gzippo": "~0.2.0",
+    "mozscape": "~0.1.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
