@@ -9,11 +9,19 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  */
 
 body {
-  background-color: floralwhite; 
+  background-color: whitesmoke;
+  //background-image: url("/assets/images/grey_wash_wall.png");
+  //background-repeat: repeat;
 }
 
 th {
   background-color:cornsilk;
+  color: black;
+}
+
+td {
+  background-color: floralwhite;
+  color: black;
 }
 
 button {
@@ -26,6 +34,10 @@ table {
 
 table td {
   text-align: center;
+}
+
+.add-blog {
+  color: black;
 }
 
 .text-left {

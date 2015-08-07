@@ -3,13 +3,15 @@
 
 <div class="container"> <!-- ng-controller="FeedCtrl"-->
   <div class="row">
+    
     <div class="col-lg-12">
+      
     <!--<a href="">Log In To Vote</a><br> 
     <a href="">Log Out</a> -->
     <p>Hello {{ userName }}.</p>
     <h1>Top Programming Blogs</h1>
     <p>Top Programming Blogs ranks the top blogs in the programming field from votes by the community.</p> 
-    
+      
     <table class="table table-bordered">
     <thead>
       <tr>
@@ -49,7 +51,7 @@
       <br><span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input>
       <span>Twitter URL: </span> <input type="text" ng-model="newTwitUrl" /></input>
       <span>RSS Feed: </span> <input type="text" ng-model="newRss" /></input>
-      <button type="submit" data-ng-click="addBlog()">Add Blog</button>
+      <button class="add-blog" type="submit" data-ng-click="addBlog()">Add Blog</button>
     </form>
       <p>{{ newContent }}</p>  
       
