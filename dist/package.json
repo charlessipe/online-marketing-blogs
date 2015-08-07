@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "grunt": "*",
     "express": "~4.0.0",
     "morgan": "~1.0.0",
     "body-parser": "~1.5.0",
@@ -15,7 +16,10 @@
     "lodash": "~2.4.1",
     "ejs": "~0.8.4",
     "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.4.1"
+    "connect-mongo": "^0.4.1",
+    "twitter": "~1.2.5",
+    "gzippo": "~0.2.0",
+    "mozscape": "~0.1.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
