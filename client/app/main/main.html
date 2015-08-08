@@ -1,28 +1,32 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 
-<div class="container"> <!-- ng-controller="FeedCtrl"-->
+
   <div class="row">
     
-    <div class="col-lg-12">
+    <div class="col-lg-12 top-section">
       
     <!--<a href="">Log In To Vote</a><br> 
     <a href="">Log Out</a> -->
     <p>Hello {{ userName }}.</p>
     <h1>Top Programming Blogs</h1>
-    <p>Top Programming Blogs ranks the top blogs in the programming field from votes by the community.</p> 
-      
+    <p>Top Programming Blogs ranks the top blogs in the programming field based on the votes by the community and website metrics.</p> 
+    </div>
+  </div>
+  
+  
+    <div class="col-lg-12 table-container">
     <table class="table table-bordered">
     <thead>
       <tr>
         <th>Number</th>
-        <th width="10%"><span ng-click="sortBy = 'name'" class="glyphicon glyphicon-circle-arrow-up"></span>Blog Title</th>
-        <th><span ng-click="sortBy = '-votes.length'" class="glyphicon glyphicon-circle-arrow-up"></span> Votes</th>
-        <th><span ng-click="sortBy = '-mozrank'" class="glyphicon glyphicon-circle-arrow-up"></span> Moz Rank</th>
-        <th><span ng-click="sortBy = '-pageauthority'" class="glyphicon glyphicon-circle-arrow-up"></span> Page Authority</th>
-        <th><span ng-click="sortBy = '-linkingsites'" class="glyphicon glyphicon-circle-arrow-up"></span> External Links</th>
+        <th width="10%"><span ng-click="sortBy = 'name'" class="glyphicon glyphicon-sort-by-attributes-alt"></span>Blog Title</th>
+        <th><span ng-click="sortBy = '-votes.length'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Votes</th>
+        <th><span ng-click="sortBy = '-mozrank'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Moz Rank</th>
+        <th><span ng-click="sortBy = '-pageauthority'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Page Authority</th>
+        <th><span ng-click="sortBy = '-linkingsites'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> External Links</th>
         <th>Twitter Name</th>
-        <th><span ng-click="sortBy = '-twitterFollowers'" class="glyphicon glyphicon-circle-arrow-up"></span> Followers</th>
+        <th><span ng-click="sortBy = '-twitterFollowers'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Followers</th>
         <th>Lastest Article</th>
       </tr>
     </thead>
@@ -42,7 +46,11 @@
       </tr>
     </tbody>
     </table>
-    
+    </div>
+
+
+    <div class="row">
+    <div class="col-lg-12 suggest-blog">
     <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
     <form>
       <span>Title: </span> <input type="text" ng-model="newContent" /></input>
@@ -54,7 +62,9 @@
       <button class="add-blog" type="submit" data-ng-click="addBlog()">Add Blog</button>
     </form>
       <p>{{ newContent }}</p>  
-      
+    </div>
+    </div>
+
     
     <!--
     <p>Twitter username test:</p>
@@ -147,7 +157,7 @@
 
     </div>
   </div>
-</div>
+
 
 <!--
 <header class="hero-unit" id="banner">

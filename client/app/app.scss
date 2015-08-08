@@ -10,8 +10,22 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 body {
   background-color: whitesmoke;
-  //background-image: url("/assets/images/grey_wash_wall.png");
   //background-repeat: repeat;
+}
+
+.top-section {
+ padding: 0 5% 0 5%; 
+}
+
+.table-container {
+  padding: 2% 5%;
+  background-color: aquamarine;
+  background-image: url("/assets/images/balloons.jpeg");
+  background-size: 100% 100%; 
+}
+
+.suggest-blog {
+  padding: 1% 5%; 
 }
 
 th {
