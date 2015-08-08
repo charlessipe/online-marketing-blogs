@@ -154,7 +154,7 @@ angular.module('topProgrammingBlogsApp')
     //syncObject.$bindTo($scope, "data");
     
     // Facebook login
-    var ref = new Firebase("https://top-programming.firebaseio.com/");
+    //var ref = new Firebase("https://top-programming.firebaseio.com/");
     ref.authWithOAuthPopup("facebook", function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
