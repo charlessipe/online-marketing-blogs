@@ -20,7 +20,7 @@
     <thead>
       <tr>
         <th>Number</th>
-        <th width="10%"><span ng-click="sortBy = 'name'" class="glyphicon glyphicon-sort-by-attributes-alt"></span>Blog Title</th>
+        <th width="10%"><span ng-click="sortBy = 'name'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Blog Title</th>
         <th><span ng-click="sortBy = '-votes.length'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Votes</th>
         <th><span ng-click="sortBy = '-mozrank'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Moz Rank</th>
         <th><span ng-click="sortBy = '-pageauthority'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Page Authority</th>
@@ -40,7 +40,7 @@
         <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
         <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
-        <td class="text-left" ng-init="showRss($index)"><a href="{{blog.rssUrl}}">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
+        <td class="text-left" ng-init="showRss($index)"><a href="{{blog.rssUrl}}" target="_blank">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
         <button ng-click="filters.votes = currentUid" type="button" class="btn btn-primary">View My Favorite Blogs</button>
         <button ng-click="filters = undefined" type="button" class="btn btn-info">View All Blogs</button>
       </tr>
