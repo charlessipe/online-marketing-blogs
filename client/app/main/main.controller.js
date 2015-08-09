@@ -97,10 +97,8 @@ angular.module('topProgrammingBlogsApp')
     }
     
     
-    //console.log($scope.currentTwitterCount);
    
     //Set random background image
-    
     
     $scope.currentImage = "/assets/images/balloons.jpeg";
     
@@ -115,18 +113,23 @@ angular.module('topProgrammingBlogsApp')
       "/assets/images/city-river.jpg",
       "/assets/images/rainy-window.jpg",
       "/assets/images/snow-trees.jpg",
-      "/assets/images/starry-trees.jpg"
+      "/assets/images/coffee.jpg",
+      "/assets/images/cave-light.jpg",
+      "/assets/images/ocean.jpg",
+      "/assets/images/sea-sunset.jpg",
+      "/assets/images/rock-forest.jpg",
+      "/assets/images/mountain-sunset.jpg"
       ]
       
-      var randomNum = Math.floor((Math.random() * 9) + 1);
+      var randomNum = Math.floor((Math.random() * 13) + 1);
       //var randomNum = Math.floor((Math.random() * 5) + 1);
       $scope.currentImage = $scope.backgroundImage[randomNum];
-      console.log(randomNum);
-      console.log($scope.backgroundImage[randomNum]);
+      //console.log(randomNum);
+      //console.log($scope.backgroundImage[randomNum]);
   
     }
     
-    console.log($scope.currentImage);
+    
     
     //Only need to execute function to update Moz data, there are API rate limits, Turn this on when a new blog added
     /*
