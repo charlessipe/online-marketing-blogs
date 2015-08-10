@@ -268,14 +268,14 @@ angular.module('topProgrammingBlogsApp')
     
     $scope.addBlog = function() { 
       var getBlog = $scope.newContent;
-      var getUrl = $scope.newUrl;
+      //var getUrl = $scope.newUrl;
       var getMainUrl = $scope.newMainUrl;
       var getTwitter = $scope.newTwitter;
       var getTwitUrl = $scope.newTwitUrl;
       var getRss = $scope.newRss;
       var newBlog = {
         name: getBlog,
-        url: getUrl,
+        url: "www.mozexampleurl.com",
         blogurl: "https://unsplash.com/",
         pageauthority: 0, 
         linkingsites: 0,
