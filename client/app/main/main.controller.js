@@ -276,7 +276,6 @@ angular.module('topProgrammingBlogsApp')
       var newBlog = {
         name: getBlog,
         url: "www.mozexampleurl.com",
-        blogurl: "https://unsplash.com/",
         pageauthority: 0, 
         linkingsites: 0,
         mozrank: 0,
@@ -304,7 +303,11 @@ angular.module('topProgrammingBlogsApp')
         $scope.blogs.$save(blog);
       }
       else {
-        alert("Sorry! You've already voted for this blog.");
+        //alert("Sorry! You've already voted for this blog.");
+        var blog = number;
+        var index = blog.votes.indexOf($scope.currentUid);
+        blog.votes.splice(index, 1);
+        $scope.blogs.$save(blog);
       }
     }
 
