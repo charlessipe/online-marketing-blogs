@@ -16,5 +16,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
 
+    $stateProvider
+      .state('instructions', {  // Instructions page
+        url: '/instructions',
+        templateUrl: 'app/instructions.html',
+        controller: 'MainCtrl',
+      });
   
   });

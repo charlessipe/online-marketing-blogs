@@ -131,7 +131,8 @@ angular.module('topProgrammingBlogsApp')
     
     
     
-    //Only need to execute function to update Moz data, there are API rate limits, Turn this on when a new blog added
+    //Only need to execute function to update Moz data because there are API rate limits that make it problematic to constantly make API requests. Manually uncomment this funtion to get metrics for a new blog.
+    
     /*
     $scope.getMozData = function(start) {
   
