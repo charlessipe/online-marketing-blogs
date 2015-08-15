@@ -129,6 +129,10 @@ angular.module('topProgrammingBlogsApp')
   
     }
     
+    $scope.randomImage();
+  
+    //console.log($scope.currentImage);
+    
     
     
     //Only need to execute function to update Moz data because there are API rate limits that make it problematic to constantly make API requests. Manually uncomment this funtion to get metrics for a new blog.

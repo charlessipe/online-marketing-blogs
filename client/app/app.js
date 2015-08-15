@@ -6,7 +6,7 @@ angular.module('topProgrammingBlogsApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'ngTouch',
+  //'ngTouch',
   'firebase'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

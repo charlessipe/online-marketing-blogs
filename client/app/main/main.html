@@ -3,7 +3,8 @@
 
 
   
-    
+<div class=".container-fluid">
+  <div class="row">
     <div class="col-xs-12 top-section">
       
     <!--<a href="">Log In To Vote</a><br> 
@@ -12,10 +13,10 @@
     <h1>Top Programming Blogs</h1>
     <p>Top Programming Blogs ranks the top blogs in the programming field based on the votes by the community and website metrics.</p> 
     </div>
+  </div>
   
-  
-  
-    <div ng-init="randomImage()" class="col-xs-12 table-container" style="background-image: url('{{currentImage}}');">
+  <div class="row">
+    <div class="col-xs-12 table-container" style="background-image: url('{{currentImage}}')">
     <table class="table table-bordered">
     <thead>
       <tr>
@@ -47,6 +48,7 @@
     </tbody>
     </table>
     </div>
+  </div>
 
 
     <div class="row">
@@ -139,24 +141,9 @@
     <p>Page Authority: {{ mozData.upa}}</p>
     -->
     
-    
-    
-
-    <div ng-repeat="rss in myRss" > 
-    <h5><a href="{{rss.link}}">{{rss.title}}</a></h5>
- <p class="text-left">{{rss.contentSnippet}}</p>
- <div class="line line-lg b-b b-light"></div>
- <div class="text-muted">
-  <i class="fa fa-clock-o text-muted"></i>
-  <span class="small">{{rss.publishedDate}}</span>
-      </div>
-    </div>
-    
-
-
     </div>
   </div>
-
+</div>
 
 <!--
 <header class="hero-unit" id="banner">
