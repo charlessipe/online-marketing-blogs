@@ -21,13 +21,13 @@
     <thead>
       <tr>
         <th>Number</th>
-        <th width="10%"><span ng-click="sortBy = 'name'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Blog Title</th>
-        <th><span ng-click="sortBy = '-votes.length'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Votes</th>
-        <th><span ng-click="sortBy = '-mozrank'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Moz Rank</th>
-        <th><span ng-click="sortBy = '-pageauthority'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Page Authority</th>
-        <th><span ng-click="sortBy = '-linkingsites'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> External Links</th>
+        <th width="10%" class="sortable-column" ng-click="sortBy = 'name'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Blog Title</th>
+        <th class="sortable-column" ng-click="sortBy = '-votes.length'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Votes</th>
+        <th class="sortable-column" ng-click="sortBy = '-mozrank'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Moz Rank</th>
+        <th class="sortable-column" ng-click="sortBy = '-pageauthority'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Page Authority</th>
+        <th class="sortable-column" ng-click="sortBy = '-linkingsites'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> External Links</th>
         <th>Twitter Name</th>
-        <th><span ng-click="sortBy = '-twitterFollowers'" class="glyphicon glyphicon-sort-by-attributes-alt"></span> Followers</th>
+        <th class="sortable-column" ng-click="sortBy = '-twitterFollowers'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Followers</th>
         <th>Lastest Article</th>
       </tr>
     </thead>

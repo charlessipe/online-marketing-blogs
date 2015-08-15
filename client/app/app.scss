@@ -66,6 +66,10 @@ table td {
     padding: 0.2em 0;
 }
 
+.sortable-column:hover {
+  background-color:antiquewhite;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'main/main.scss';
