@@ -70,6 +70,10 @@ table td {
   background-color:antiquewhite;
 }
 
+.glyphicon-thumbs-up:hover {
+  color: dodgerblue;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'main/main.scss';
