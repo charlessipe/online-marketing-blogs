@@ -176,10 +176,14 @@ angular.module('topProgrammingBlogsApp')
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
     /* Add second Firebase array */
+    var ref2 = new Firebase("https://seattle-startups.firebaseio.com/"); 
     
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
+  
+    $scope.data2 = $firebaseObject(ref2);
+  
 
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
@@ -189,6 +193,8 @@ angular.module('topProgrammingBlogsApp')
         $scope.currentTwitterCount = new Array(res.length);
       });
 
+    $scope.startupBlogs = $firebaseArray(ref2);
+  
     // synchronize the object with a three-way data binding
     //syncObject.$bindTo($scope, "data");
     
@@ -247,6 +253,42 @@ angular.module('topProgrammingBlogsApp')
       //}
     }
     
+    $scope.showRss3 = function(start) {  
+   
+      //for(var index = 0; index < $scope.blogs.length; index++){
+      var rssUrl = $scope.startupBlogs[start].rssFeed;
+        
+      google.load("feeds", "1");
+
+      function initialize() {
+        var feed = new google.feeds.Feed(rssUrl);
+        feed.load(function(result) {
+          if (!result.error) {
+            var entry = result.feed.entries[0];
+            $scope.currentRss[start] = entry;
+            
+            
+            $scope.updateRss = function() {
+            var rssItem = $scope.startupBlogs[start];
+            rssItem.rssTitle = $scope.currentRss[start].title;
+            rssItem.rssUrl = $scope.currentRss[start].link;
+            $scope.startupBlogs.$save(rssItem);
+            }
+            $scope.updateRss();
+    
+            //$scope.currentRss = entry;
+            //$scope.rssArray.push = entry; 
+            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
+        }
+        $scope.$apply();  
+        });
+      }
+      initialize();
+      // end for loop
+      //}
+    }
+    
+    
     //$scope.showRss();
  
     
@@ -299,8 +341,13 @@ angular.module('topProgrammingBlogsApp')
         mainUrl: getMainUrl
       };
 
+      $scope.startupBlogs.$add(newBlog);
+      $scope.startupBlogs.$save(newBlog);
+      
+      /*
       $scope.blogs.$add(newBlog);
       $scope.blogs.$save(newBlog); 
+      */
     }
     
     $scope.addVote = function(number) {
@@ -322,6 +369,9 @@ angular.module('topProgrammingBlogsApp')
     $scope.sortBy = '-blogScore';
     //$scope.filters = {presentUid: currentUid};
 
+    
+  
+  
   });
 
 

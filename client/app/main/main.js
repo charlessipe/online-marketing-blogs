@@ -23,4 +23,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('seattlestartups', {  // Seattle Startups page
+        url: '/seattle-startups',
+        templateUrl: 'app/seattle-startups.html',
+        controller: 'MainCtrl',
+      });
+  
   });

@@ -1,0 +1,197 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+
+  
+<div class=".container-fluid">
+  <div class="row">
+    <div class="col-xs-12 top-section">
+      
+    <!--<a href="">Log In To Vote</a><br> 
+    <a href="">Log Out</a> -->
+    <p>Hello {{ userName }}.</p>
+    <h1>Seattle Startups</h1>
+    <p>Top Programming Blogs ranks the top blogs in the programming field based on the votes by the community and website metrics.</p> 
+    <p>Tip: Click on the <span class="glyphicon glyphicon-thumbs-up"></span> to vote for a blog.</p>  
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-12 table-container" style="background-image: url('{{currentImage}}')">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th width="10%" class="sortable-column" ng-click="sortBy = 'name'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Blog Title</th>
+        <th class="sortable-column" ng-click="sortBy = '-votes.length'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Votes</th>
+        <th class="sortable-column" ng-click="sortBy = '-mozrank'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Moz Rank</th>
+        <th class="sortable-column" ng-click="sortBy = '-pageauthority'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Page Authority</th>
+        <th class="sortable-column" ng-click="sortBy = '-linkingsites'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> External Links</th>
+        <th>Twitter Name</th>
+        <th class="sortable-column" ng-click="sortBy = '-twitterFollowers'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Followers</th>
+        <th>Lastest Article</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="blog in startupBlogs | orderBy: sortBy | filter:filters">
+        <td>{{$index+1}}</td>
+        <td class="text-left"><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
+        <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVote(blog)"></span> {{ blog.votes.length }}</td>
+        <td ng-init="updateBlogScore($index)">{{ blog.mozrank | number:2 }}</td>
+        <td>{{ blog.pageauthority | number:2 }}</td>
+        <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
+        <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
+        <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
+        <td class="text-left" ng-init="showRss3($index)"><a href="{{blog.rssUrl}}" target="_blank">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
+        <button ng-click="filters.votes = currentUid" type="button" class="btn btn-primary">View My Favorite Blogs</button>
+        <button ng-click="filters = undefined" type="button" class="btn btn-info">View All Blogs</button>
+      </tr>
+    </tbody>
+    </table>
+    </div>
+  </div>
+
+
+    <div class="row">
+    <div class="col-lg-12 suggest-blog">
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
+    <form>
+      <span>Title: </span> <input type="text" ng-model="newContent" /></input><br>
+      <span>Blog URL:</span> <input type="text" ng-model="newMainUrl" /></input><br>
+      <span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input><br>
+      <span>Twitter URL: </span> <input type="text" ng-model="newTwitUrl" /></input><br>
+      <span>RSS Feed: </span> <input type="text" ng-model="newRss" /></input><br>
+      <button class="add-blog" type="submit" data-ng-click="addBlog()">Add Blog</button>
+    </form>
+    <p>All fields must be filled for a new blog to be added.</p> 
+    </div>
+    </div>
+
+    
+    <!--
+    <p>Twitter username test:</p>
+    <div class="row" style="margin-top:5px;">
+      <div class="col-xs-12">
+        <input class="form-control" type="text" placeholder="Twitter User Name (e.g. BoyCook)" ng-model="userName">
+        <br>
+        <br>
+        <p class="text-center"><button class="btn btn-primary" ng-click="getUser(userName)">Get User</button></p>
+      </div>
+    </div>
+
+    <div class="row" ng-if="twitterErrors">
+        <div class="col-xs-12">
+          <div class="alert alert-danger">
+            {{twitterErrors}}
+          </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:50px;" ng-if="results">
+        <div class="col-xs-12">
+          <p class="text-center"><img ng-src="{{results.profile_image_url}}"></p>
+          <table class="table table-bordered">
+            <tr ng-repeat="(key, value) in results">
+              <td>
+                {{key}}
+              </td>
+              <td>
+                {{value}}
+              </td>
+            </tr>
+          </table>
+        </div>
+    </div>
+    -->
+    
+    <!--
+    <ul>
+      <li ng-repeat="x in names">
+        {{ x.Name + ', ' + x.Country }}
+      </li>
+    </ul>
+    
+    <ul>
+      <li ng-repeat="followers in twitterFollowers">
+        {{ followers.followers_count }}
+      </li>
+    </ul>
+  
+    <ul>
+      <li ng-repeat="racers in racerNames">
+        {{ racers.Driver.givenName }}
+      </li>
+    </ul>
+    -->
+
+    <!--
+    <ul>
+      <li ng-repeat="data in siteData">
+        {{ data.uu }} 
+        {{ data.umrp }}
+        {{ data.upa }}
+      </li>
+      <li>MozData goes here</li>
+      
+      {{mozData}}
+    </ul>
+
+    <p>URL: {{mozData.uu }} </p>
+    <p>MozRank: {{ mozData.umrp }} </p> 
+    <p>External Links: {{ mozData.ueid }} </p>
+    <p>Page Authority: {{ mozData.upa}}</p>
+    -->
+    
+    </div>
+  </div>
+</div>
+
+<!--
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>'Allo, Charles</h1>
+    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
+    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Features:</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
+        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+-->
+
+<footer class="footer">
+  
+  <!-- <div class="container"> 
+   
+    <div ng-repeat="feed in feeds">
+	<h2><a href="{{feed.link}}" target="_blank">{{feed.title}}</a></h2>
+	<p><span ng-repeat="item in feed.entries">
+		<a href="{{item.link}}" target="_blank">{{item.title}}</a> (<span>{{item.publishedDate | date:'d-MM-yyyy HH:mm'}}</span>)<br />
+	</span></p>
+</div>
+   -->
+    <!--
+    <div ng-repeat="feed in feeds" > 
+    <h5><a href="{{feed.link}}">{{feed.title}}</a></h5>
+ <p class="text-left">{{feed.contentSnippet}}</p>
+ <div class="line line-lg b-b b-light"></div>
+ <div class="text-muted">
+  <i class="fa fa-clock-o text-muted"></i>
+  <span class="small">{{feed.publishedDate}}</span>
+      </div>
+    </div>
+    -->
+      <p>Angular Fullstack v2.0.13 |
+        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
+         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+  </div>
+</footer>
