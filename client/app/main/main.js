@@ -30,4 +30,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('add-blog', {  // Add blog page
+        url: '/add-blog',
+        templateUrl: 'app/add-blog.html',
+        controller: 'MainCtrl',
+      });
+  
   });

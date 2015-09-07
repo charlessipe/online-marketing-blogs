@@ -1,0 +1,32 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container"> 
+  <div class="row">
+    <div class="col-lg-12">
+    <p>Hello {{ userName }}.</p>
+    <h1>Add Blog</h1>
+    
+    <div class="row">
+    <div class="col-lg-12 suggest-blog">
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
+    <form>
+      <span>Title: </span> <input type="text" ng-model="newContent" /></input><br>
+      <span>Blog URL:</span> <input type="text" ng-model="newMainUrl" /></input><br>
+      <span>Moz URL:</span> <input type="text" ng-model="newMozUrl" /></input><br>
+      <span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input><br>
+      <span>Twitter URL: </span> <input type="text" ng-model="newTwitUrl" /></input><br>
+      <span>RSS Feed: </span> <input type="text" ng-model="newRss" /></input><br>
+      <button class="add-blog" type="submit" data-ng-click="addBlogWild()">Add Blog</button>
+    </form>
+    <p>All fields must be filled for a new blog to be added.</p> 
+    </div>
+    </div>
+    
+
+<footer class="footer">
+
+      <p>Angular Fullstack v2.0.13 |
+        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
+         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+  </div>
+</footer>

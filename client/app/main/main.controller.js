@@ -404,9 +404,10 @@ angular.module('topProgrammingBlogsApp')
       var getTwitter = $scope.newTwitter;
       var getTwitUrl = $scope.newTwitUrl;
       var getRss = $scope.newRss;
+      var getMozUrl = $scope.newMozUrl;
       var newBlog = {
         name: getBlog,
-        url: "www.mozexampleurl.com",
+        url: getMozUrl,
         pageauthority: 0, 
         linkingsites: 0,
         mozrank: 0,
