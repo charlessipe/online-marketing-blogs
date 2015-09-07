@@ -24,7 +24,7 @@ angular.module('topProgrammingBlogsApp')
       });
   
     $stateProvider
-      .state('seattlestartups', {  // Seattle Startups page
+      .state('seattle-startups', {  // Seattle Startups page
         url: '/seattle-startups',
         templateUrl: 'app/seattle-startups.html',
         controller: 'MainCtrl',

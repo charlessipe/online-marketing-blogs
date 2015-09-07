@@ -75,6 +75,33 @@ angular.module('topProgrammingBlogsApp')
       })
     }
     
+    
+    $scope.getTwitterCountWild = function(start) {
+      var twitterHandle = $scope.startupBlogs[start].twitterName;
+    
+      TwitterService.getUser(twitterHandle)
+        .then(function(followers){
+        //do work with data
+          $scope.twitterErrors = undefined;
+          $scope.follower = followers;
+        //console.log(followers);
+        //$scope.currentTwitterCount.push(followers);
+          $scope.currentTwitterCount[start] = followers;
+        
+        $scope.updateTwitter = function() {
+          var item = $scope.startupBlogs[start];
+          item.twitterFollowers = $scope.follower;
+          $scope.startupBlogs.$save(item);
+        }
+        $scope.updateTwitter();
+        
+      })
+        .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+      })
+    }
+    
+    
     $scope.updateBlogScore = function(start) {
       
       var votesValue = $scope.blogs[start].votes.length;
@@ -88,14 +115,22 @@ angular.module('topProgrammingBlogsApp')
       var blogScoreItem = $scope.blogs[start]; 
       blogScoreItem.blogScore = BlogScoreTotal;
       $scope.blogs.$save(blogScoreItem);
-      
-      
-      //console.log($scope.blogs[start].votes.length);
-      //console.log($scope.blogs[start].linkingsites);
-      //console.log($scope.blogs[start].mozrank);
-      //console.log($scope.blogs[start].pageauthority);
     }
     
+    $scope.updateBlogScoreWild = function(start) {
+      
+      var votesValue = $scope.startupBlogs[start].votes.length;
+      var linkingsitesValue = $scope.startupBlogs[start].linkingsites;
+      var mozrankValue = $scope.startupBlogs[start].mozrank;
+      var pageauthorityValue = $scope.startupBlogs[start].pageauthority;
+      var twitterValue = $scope.startupBlogs[start].twitterFollowers;
+      
+      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
+      
+      var blogScoreItem = $scope.startupBlogs[start]; 
+      blogScoreItem.blogScore = BlogScoreTotal;
+      $scope.startupBlogs.$save(blogScoreItem);
+    }
     
    
     //Set random background image
@@ -169,6 +204,36 @@ angular.module('topProgrammingBlogsApp')
     }
     */
     
+    $scope.getMozDataWild = function(start) {
+  
+    var mozUrl = $scope.startupBlogs[start].url;
+  
+    MozService.getMoz(mozUrl)
+        .then(function(linkData){
+        //do work with data
+          $scope.twitterErrors = undefined;
+          $scope.mozData = linkData;
+          //console.log(res);
+      
+      $scope.updateMozWild = function(){
+        var item = $scope.startupBlogs[start]; 
+        item.mozrank = $scope.mozData.umrp;
+        item.pageauthority = $scope.mozData.upa;
+        item.linkingsites = $scope.mozData.ueid;
+        $scope.startupBlogs.$save(item);  
+      }
+      
+      $scope.updateMozWild();
+      //Only need to execute function to update Moz data, there are API rate limits
+      
+      
+      })
+        .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+      })
+    
+    }
+  
     
     
     
@@ -290,19 +355,6 @@ angular.module('topProgrammingBlogsApp')
     
     
     //$scope.showRss();
- 
-    
-    /*
-    // W3Schools API
-    $http.get("http://www.w3schools.com/angular/customers.php")
-  .success(function (response) {$scope.names = response.records;});
-  
-    // Racers API  
-    $http.get('http://ergast.com/api/f1/2013/driverStandings.json')
-    .success(function(racers){
-        $scope.racerNames = racers;
-    });
-    */
     
     /*
     $scope.updateMozRank = function(start) {
@@ -341,16 +393,42 @@ angular.module('topProgrammingBlogsApp')
         mainUrl: getMainUrl
       };
 
-      $scope.startupBlogs.$add(newBlog);
-      $scope.startupBlogs.$save(newBlog);
-      
-      /*
       $scope.blogs.$add(newBlog);
-      $scope.blogs.$save(newBlog); 
-      */
+      $scope.blogs.$save(newBlog);
     }
     
-    $scope.addVote = function(number) {
+    
+    $scope.addBlogWild = function() { 
+      var getBlog = $scope.newContent;
+      var getMainUrl = $scope.newMainUrl;
+      var getTwitter = $scope.newTwitter;
+      var getTwitUrl = $scope.newTwitUrl;
+      var getRss = $scope.newRss;
+      var newBlog = {
+        name: getBlog,
+        url: "www.mozexampleurl.com",
+        pageauthority: 0, 
+        linkingsites: 0,
+        mozrank: 0,
+        pagerank: 5,
+        votes: [1],
+        twitterName: getTwitter,
+        twitterUrl: getTwitUrl,
+        twitterFollowers: 100,
+        rssFeed: getRss,
+        blogScore: 100,
+        rssTitle: "Newly Submitted Blog",
+        rssUrl: "http://www.google.com/",
+        mainUrl: getMainUrl
+      };
+
+      $scope.startupBlogs.$add(newBlog);
+      $scope.startupBlogs.$save(newBlog);
+    }
+    
+    
+    
+    $scope.addVote = function(number) {  // Add votes to a blog
       //console.log(number);
       if(number.votes.indexOf($scope.currentUid) < 0) {
         var blog = number;
@@ -365,8 +443,24 @@ angular.module('topProgrammingBlogsApp')
         $scope.blogs.$save(blog);
       }
     }
+    
+    $scope.addVoteWild = function(number) {  // Add votes to a blog
+      //console.log(number);
+      if(number.votes.indexOf($scope.currentUid) < 0) {
+        var blog = number;
+        blog.votes.push($scope.currentUid);
+        $scope.startupBlogs.$save(blog);
+      }
+      else {
+        //alert("Sorry! You've already voted for this blog.");
+        var blog = number;
+        var index = blog.votes.indexOf($scope.currentUid);
+        blog.votes.splice(index, 1);
+        $scope.startupBlogs.$save(blog);
+      }
+    }
 
-    $scope.sortBy = '-blogScore';
+    $scope.sortBy = '-blogScore';  // Sort blogs by blogScore
     //$scope.filters = {presentUid: currentUid};
 
     
