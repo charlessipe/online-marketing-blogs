@@ -175,6 +175,9 @@ angular.module('topProgrammingBlogsApp')
     
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
+    /* Add second Firebase array */
+    
+  
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
 
