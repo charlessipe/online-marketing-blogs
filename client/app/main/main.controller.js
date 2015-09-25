@@ -47,10 +47,10 @@ angular.module('topProgrammingBlogsApp')
   
    
   
-    // Twitter API
-    $scope.currentTwitterCount = [];
-   
-    $scope.getTwitterCount = function(start) {
+    // Twitter API  // Activate function when necessary to avoid Rate Limit Exceeded
+     $scope.currentTwitterCount = [];
+    /*
+     $scope.getTwitterCount = function(start) {
       var twitterHandle = $scope.blogs[start].twitterName;
     
       TwitterService.getUser(twitterHandle)
@@ -58,8 +58,6 @@ angular.module('topProgrammingBlogsApp')
         //do work with data
           $scope.twitterErrors = undefined;
           $scope.follower = followers;
-        //console.log(followers);
-        //$scope.currentTwitterCount.push(followers);
           $scope.currentTwitterCount[start] = followers;
         
         $scope.updateTwitter = function() {
@@ -67,16 +65,16 @@ angular.module('topProgrammingBlogsApp')
           item.twitterFollowers = $scope.follower;
           $scope.blogs.$save(item);
         }
-        $scope.updateTwitter();
+        $scope.updateTwitter(); 
         
       })
         .catch(function(error){
         console.error('there was an error retrieving data: ', error);
       })
     }
+    */
     
-    
-    $scope.getTwitterCountWild = function(start) {
+    /*$scope.getTwitterCountWild = function(start) {
       var twitterHandle = $scope.startupBlogs[start].twitterName;
     
       TwitterService.getUser(twitterHandle)
@@ -99,7 +97,7 @@ angular.module('topProgrammingBlogsApp')
         .catch(function(error){
         console.error('there was an error retrieving data: ', error);
       })
-    }
+    } */
     
     
     $scope.updateBlogScore = function(start) {
@@ -240,7 +238,7 @@ angular.module('topProgrammingBlogsApp')
     
     var ref = new Firebase("https://top-programming.firebaseio.com/"); // Instantiate the Firebase service with the new operator.
 
-    /* Add second Firebase array */
+    /* Add more Firebase arrays */
     var ref2 = new Firebase("https://seattle-startups.firebaseio.com/"); 
     
   
@@ -461,6 +459,7 @@ angular.module('topProgrammingBlogsApp')
       }
     }
 
+    //$scope.sortBy = '-mozrank'; // Sort blogs by votes
     $scope.sortBy = '-blogScore';  // Sort blogs by blogScore
     //$scope.filters = {presentUid: currentUid};
 
