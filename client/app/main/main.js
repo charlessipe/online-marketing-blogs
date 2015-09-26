@@ -37,4 +37,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('coding-bootcamps', {  // Coding Bootcamps page
+        url: '/coding-bootcamps',
+        templateUrl: 'app/coding-bootcamps.html',
+        controller: 'MainCtrl',
+      });
+  
   });

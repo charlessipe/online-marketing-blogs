@@ -74,8 +74,8 @@ angular.module('topProgrammingBlogsApp')
     }
     */
     
-    /*$scope.getTwitterCountWild = function(start) {
-      var twitterHandle = $scope.startupBlogs[start].twitterName;
+    $scope.getTwitterCountWild = function(start) {
+      var twitterHandle = $scope.codingBootcamps[start].twitterName;
     
       TwitterService.getUser(twitterHandle)
         .then(function(followers){
@@ -87,9 +87,9 @@ angular.module('topProgrammingBlogsApp')
           $scope.currentTwitterCount[start] = followers;
         
         $scope.updateTwitter = function() {
-          var item = $scope.startupBlogs[start];
+          var item = $scope.codingBootcamps[start];
           item.twitterFollowers = $scope.follower;
-          $scope.startupBlogs.$save(item);
+          $scope.codingBootcamps.$save(item);
         }
         $scope.updateTwitter();
         
@@ -97,7 +97,7 @@ angular.module('topProgrammingBlogsApp')
         .catch(function(error){
         console.error('there was an error retrieving data: ', error);
       })
-    } */
+    } 
     
     
     $scope.updateBlogScore = function(start) {
@@ -117,17 +117,17 @@ angular.module('topProgrammingBlogsApp')
     
     $scope.updateBlogScoreWild = function(start) {
       
-      var votesValue = $scope.startupBlogs[start].votes.length;
-      var linkingsitesValue = $scope.startupBlogs[start].linkingsites;
-      var mozrankValue = $scope.startupBlogs[start].mozrank;
-      var pageauthorityValue = $scope.startupBlogs[start].pageauthority;
-      var twitterValue = $scope.startupBlogs[start].twitterFollowers;
+      var votesValue = $scope.codingBootcamps[start].votes.length;
+      var linkingsitesValue = $scope.codingBootcamps[start].linkingsites;
+      var mozrankValue = $scope.codingBootcamps[start].mozrank;
+      var pageauthorityValue = $scope.codingBootcamps[start].pageauthority;
+      var twitterValue = $scope.codingBootcamps[start].twitterFollowers;
       
       var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
       
-      var blogScoreItem = $scope.startupBlogs[start]; 
+      var blogScoreItem = $scope.codingBootcamps[start]; 
       blogScoreItem.blogScore = BlogScoreTotal;
-      $scope.startupBlogs.$save(blogScoreItem);
+      $scope.codingBootcamps.$save(blogScoreItem);
     }
     
    
@@ -204,7 +204,7 @@ angular.module('topProgrammingBlogsApp')
     
     $scope.getMozDataWild = function(start) {
   
-    var mozUrl = $scope.startupBlogs[start].url;
+    var mozUrl = $scope.codingBootcamps[start].url;
   
     MozService.getMoz(mozUrl)
         .then(function(linkData){
@@ -214,11 +214,11 @@ angular.module('topProgrammingBlogsApp')
           //console.log(res);
       
       $scope.updateMozWild = function(){
-        var item = $scope.startupBlogs[start]; 
+        var item = $scope.codingBootcamps[start]; 
         item.mozrank = $scope.mozData.umrp;
         item.pageauthority = $scope.mozData.upa;
         item.linkingsites = $scope.mozData.ueid;
-        $scope.startupBlogs.$save(item);  
+        $scope.codingBootcamps.$save(item);  
       }
       
       $scope.updateMozWild();
@@ -240,12 +240,14 @@ angular.module('topProgrammingBlogsApp')
 
     /* Add more Firebase arrays */
     var ref2 = new Firebase("https://seattle-startups.firebaseio.com/"); 
-    
+    var ref3 = new Firebase("https://coding-bootcamps.firebaseio.com/");
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
   
     $scope.data2 = $firebaseObject(ref2);
+  
+    $scope.data3 = $firebaseObject(ref3);
   
 
     // create a synchronized array
@@ -257,6 +259,8 @@ angular.module('topProgrammingBlogsApp')
       });
 
     $scope.startupBlogs = $firebaseArray(ref2);
+    $scope.codingBootcamps = $firebaseArray(ref3);
+    var wildCard = $scope.codingBootcamps;
   
     // synchronize the object with a three-way data binding
     //syncObject.$bindTo($scope, "data");
@@ -352,6 +356,44 @@ angular.module('topProgrammingBlogsApp')
     }
     
     
+    $scope.showRss4 = function(start, wildVar) {  
+   
+      //for(var index = 0; index < $scope.blogs.length; index++){
+      var rssUrl = $scope.codingBootcamps[start].rssFeed;
+        
+      google.load("feeds", "1");
+
+      function initialize() {
+        var feed = new google.feeds.Feed(rssUrl);
+        feed.load(function(result) {
+          if (!result.error) {
+            var entry = result.feed.entries[0];
+            $scope.currentRss[start] = entry;
+            
+            
+            $scope.updateRss = function() {
+            var rssItem = $scope.codingBootcamps[start];
+            rssItem.rssTitle = $scope.currentRss[start].title;
+            rssItem.rssUrl = $scope.currentRss[start].link;
+            $scope.codingBootcamps.$save(rssItem);
+            }
+            $scope.updateRss();
+    
+            //$scope.currentRss = entry;
+            //$scope.rssArray.push = entry; 
+            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
+        }
+        $scope.$apply();  
+        });
+      }
+      initialize();
+      // end for loop
+      //}
+    }
+    
+    
+    
+    
     //$scope.showRss();
     
     /*
@@ -421,8 +463,8 @@ angular.module('topProgrammingBlogsApp')
         mainUrl: getMainUrl
       };
 
-      $scope.startupBlogs.$add(newBlog);
-      $scope.startupBlogs.$save(newBlog);
+      $scope.codingBootcamps.$add(newBlog);
+      $scope.codingBootcamps.$save(newBlog);
     }
     
     
@@ -448,14 +490,14 @@ angular.module('topProgrammingBlogsApp')
       if(number.votes.indexOf($scope.currentUid) < 0) {
         var blog = number;
         blog.votes.push($scope.currentUid);
-        $scope.startupBlogs.$save(blog);
+        $scope.codingBootcamps.$save(blog);
       }
       else {
         //alert("Sorry! You've already voted for this blog.");
         var blog = number;
         var index = blog.votes.indexOf($scope.currentUid);
         blog.votes.splice(index, 1);
-        $scope.startupBlogs.$save(blog);
+        $scope.codingBootcamps.$save(blog);
       }
     }
 
