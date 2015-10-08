@@ -74,6 +74,7 @@ angular.module('topProgrammingBlogsApp')
     }
     */
     
+    
     $scope.getTwitterCountWild = function(start) {
       var twitterHandle = $scope.codingBootcamps[start].twitterName;
     
@@ -201,7 +202,7 @@ angular.module('topProgrammingBlogsApp')
     
     }
     */
-    
+    /*
     $scope.getMozDataWild = function(start) {
   
     var mozUrl = $scope.codingBootcamps[start].url;
@@ -231,8 +232,8 @@ angular.module('topProgrammingBlogsApp')
       })
     
     }
-  
     
+    */
     
     
     

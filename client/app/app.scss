@@ -8,6 +8,36 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+.headline {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 700;
+}
+
+.homepage-row span {
+  font-size: 50px;
+}
+
+.homepage-row .col-xs-4 {
+  padding: 30px;
+  height: 200px;
+  background-color: #efefef; 
+}
+
+
+.homepage-row h2 {
+  font-family: 'Noto Sans', sans-serif;
+  text-align: center;
+}
+
+.homepage-icon {
+  display:block;
+  text-align:center
+}
+
+.col-xs-4 li {
+  list-style-type: none; 
+}
+
 .navbar-brand {
   font-size: 1.8em;
   font-family: 'Noto Sans', sans-serif;
