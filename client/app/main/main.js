@@ -44,4 +44,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('personal-development', {  // Personal Development page
+        url: '/personal-development',
+        templateUrl: 'app/personal-development.html',
+        controller: 'MainCtrl',
+      });
+  
   });
