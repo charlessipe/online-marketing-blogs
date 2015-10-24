@@ -36,7 +36,7 @@
       <tr ng-repeat="blog in codingBootcamps | orderBy: sortBy | filter:filters">
         <td>{{$index+1}}</td>
         <td class="text-left"><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
-        <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVoteWild(blog)"></span> {{ blog.votes.length }}</td>
+        <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVoteCodingBootcamps(blog)"></span> {{ blog.votes.length }}</td>
         <td>{{ blog.mozrank | number:2 }}</td>
         <td ng-init="updateBlogScoreWild($index)">{{ blog.pageauthority | number:2 }}</td>
         <td ng-init="getMozDataWild($index)">{{ blog.linkingsites | number }}</td>

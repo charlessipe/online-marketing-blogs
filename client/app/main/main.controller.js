@@ -100,6 +100,32 @@ angular.module('topProgrammingBlogsApp')
       })
     } 
     
+    $scope.getTwitterStartupBlogs = function(start) {
+      var twitterHandle = $scope.startupBlogs[start].twitterName;
+    
+      TwitterService.getUser(twitterHandle)
+        .then(function(followers){
+        //do work with data
+          $scope.twitterErrors = undefined;
+          $scope.follower = followers;
+        //console.log(followers);
+        //$scope.currentTwitterCount.push(followers);
+          $scope.currentTwitterCount[start] = followers;
+        
+        $scope.updateTwitter = function() {
+          var item = $scope.startupBlogs[start];
+          item.twitterFollowers = $scope.follower;
+          $scope.startupBlogs.$save(item);
+        }
+        $scope.updateTwitter();
+        
+      })
+        .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+      })
+    } 
+    
+    
     
     $scope.updateBlogScore = function(start) {
       
@@ -129,6 +155,21 @@ angular.module('topProgrammingBlogsApp')
       var blogScoreItem = wildCard[start]; 
       blogScoreItem.blogScore = BlogScoreTotal;
       wildCard.$save(blogScoreItem);
+    }
+    
+    $scope.updateBlogScoreStartupBlogs = function(start) {
+      
+      var votesValue = $scope.startupBlogs[start].votes.length;
+      var linkingsitesValue = $scope.startupBlogs[start].linkingsites;
+      var mozrankValue = $scope.startupBlogs[start].mozrank;
+      var pageauthorityValue = $scope.startupBlogs[start].pageauthority;
+      var twitterValue = $scope.startupBlogs[start].twitterFollowers;
+      
+      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
+      
+      var blogScoreItem = $scope.startupBlogs[start]; 
+      blogScoreItem.blogScore = BlogScoreTotal;
+      $scope.startupBlogs.$save(blogScoreItem);
     }
     
    
@@ -203,7 +244,7 @@ angular.module('topProgrammingBlogsApp')
     }
     */
   
-    
+    /*
     $scope.getMozDataWild = function(start) {
   
     var mozUrl = wildCard[start].url;
@@ -233,7 +274,7 @@ angular.module('topProgrammingBlogsApp')
       })
     
     }
-    
+    */
     
     
     
@@ -544,6 +585,43 @@ angular.module('topProgrammingBlogsApp')
         //$scope.wildCard.$save(blog);
       }
     }
+    
+    $scope.addVoteCodingBootcamps = function(number) {  // Add votes to a blog
+      //console.log(number);
+      if(number.votes.indexOf($scope.currentUid) < 0) {
+        var blog = number;
+        blog.votes.push($scope.currentUid);
+        $scope.codingBootcamps.$save(blog);
+        //$scope.wildCard.$save(blog);
+      }
+      else {
+        //alert("Sorry! You've already voted for this blog.");
+        var blog = number;
+        var index = blog.votes.indexOf($scope.currentUid);
+        blog.votes.splice(index, 1);
+        $scope.codingBootcamps.$save(blog);
+        //$scope.wildCard.$save(blog);
+      }
+    }
+    
+    $scope.addVoteStartupBlogs = function(number) {  // Add votes to a blog
+      //console.log(number);
+      if(number.votes.indexOf($scope.currentUid) < 0) {
+        var blog = number;
+        blog.votes.push($scope.currentUid);
+        $scope.startupBlogs.$save(blog);
+        //$scope.wildCard.$save(blog);
+      }
+      else {
+        //alert("Sorry! You've already voted for this blog.");
+        var blog = number;
+        var index = blog.votes.indexOf($scope.currentUid);
+        blog.votes.splice(index, 1);
+        $scope.startupBlogs.$save(blog);
+        //$scope.wildCard.$save(blog);
+      }
+    }
+    
 
     //$scope.sortBy = '-mozrank'; // Sort blogs by votes
     $scope.sortBy = '-blogScore';  // Sort blogs by blogScore
