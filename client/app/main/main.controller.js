@@ -125,6 +125,31 @@ angular.module('topProgrammingBlogsApp')
       })
     } 
     
+    $scope.getTwitterCodingBootcamps = function(start) {
+      var twitterHandle = $scope.codingBootcamps[start].twitterName;
+    
+      TwitterService.getUser(twitterHandle)
+        .then(function(followers){
+        //do work with data
+          $scope.twitterErrors = undefined;
+          $scope.follower = followers;
+        //console.log(followers);
+        //$scope.currentTwitterCount.push(followers);
+          $scope.currentTwitterCount[start] = followers;
+        
+        $scope.updateTwitter = function() {
+          var item = $scope.codingBootcamps[start];
+          item.twitterFollowers = $scope.follower;
+          $scope.codingBootcamps.$save(item);
+        }
+        $scope.updateTwitter();
+        
+      })
+        .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+      })
+    }
+    
     
     
     $scope.updateBlogScore = function(start) {
@@ -170,6 +195,21 @@ angular.module('topProgrammingBlogsApp')
       var blogScoreItem = $scope.startupBlogs[start]; 
       blogScoreItem.blogScore = BlogScoreTotal;
       $scope.startupBlogs.$save(blogScoreItem);
+    }
+    
+    $scope.updateBlogScoreCodingBootcamps = function(start) {
+      
+      var votesValue = $scope.codingBootcamps[start].votes.length;
+      var linkingsitesValue = $scope.codingBootcamps[start].linkingsites;
+      var mozrankValue = $scope.codingBootcamps[start].mozrank;
+      var pageauthorityValue = $scope.codingBootcamps[start].pageauthority;
+      var twitterValue = $scope.codingBootcamps[start].twitterFollowers;
+      
+      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
+      
+      var blogScoreItem = $scope.codingBootcamps[start]; 
+      blogScoreItem.blogScore = BlogScoreTotal;
+      $scope.codingBootcamps.$save(blogScoreItem);
     }
     
    

@@ -38,7 +38,7 @@
         <td class="text-left"><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVoteCodingBootcamps(blog)"></span> {{ blog.votes.length }}</td>
         <td>{{ blog.mozrank | number:2 }}</td>
-        <td ng-init="updateBlogScoreWild($index)">{{ blog.pageauthority | number:2 }}</td>
+        <td ng-init="updateBlogScoreCodingBootcamps($index)">{{ blog.pageauthority | number:2 }}</td>
         <td ng-init="getMozDataWild($index)">{{ blog.linkingsites | number }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
         <td>{{ blog.twitterFollowers | number }}</td>
