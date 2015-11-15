@@ -43,7 +43,7 @@ angular.module('topProgrammingBlogsApp')
  
 
 
-  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService, MozService) {
+  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService, MozService, $state) {
   
    
   
@@ -395,7 +395,19 @@ angular.module('topProgrammingBlogsApp')
     $scope.codingBootcamps = $firebaseArray(ref3);
     $scope.personalDev = $firebaseArray(ref4);
     $scope.onlineMarketing = $firebaseArray(ref5);
-    var wildCard = $scope.onlineMarketing; // Replace with current blog list that is being updated
+    var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
+  
+    $scope.$state = $state;
+    console.log("The current state is " + $state.current.name); 
+  
+    // set var wildCard based on which page user is on
+    $scope.currentBlogArray = function(){
+      if($state.current.name === "online-marketing"){
+        wildCard = $scope.onlineMarketing;
+      }
+    };
+    $scope.currentBlogArray();
+    
   
     // $scope.currentBlogArray = function(){
     // if(currentstate === "seattle-startups"){
