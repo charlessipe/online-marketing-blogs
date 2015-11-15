@@ -1,0 +1,72 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+
+  
+<div class=".container-fluid">
+  <div class="row">
+    <div class="col-xs-12 top-section">
+      
+    <!--<a href="">Log In To Vote</a><br> 
+    <a href="">Log Out</a> -->
+    <p>Hello {{ userName }}.</p>
+    <h1>Top Online Marketing Blogs</h1>
+    <p>Top Online Marketing Blogs ranks the top online marketing blogs based on the votes by the community and website metrics.</p> 
+    <p>Tip: Click on the <span class="glyphicon glyphicon-thumbs-up"></span> to vote for a blog.</p>  
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-12 table-container" style="background-image: url('{{currentImage}}')">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th width="10%" class="sortable-column" ng-click="sortBy = 'name'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Blog Title</th>
+        <th class="sortable-column" ng-click="sortBy = '-votes.length'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Votes</th>
+        <th class="sortable-column" ng-click="sortBy = '-mozrank'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Moz Rank</th>
+        <th class="sortable-column" ng-click="sortBy = '-pageauthority'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Page Authority</th>
+        <th class="sortable-column" ng-click="sortBy = '-linkingsites'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> External Links</th>
+        <th>Twitter Name</th>
+        <th class="sortable-column" ng-click="sortBy = '-twitterFollowers'"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Followers</th>
+        <th>Lastest Article</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="blog in onlineMarketing | orderBy: sortBy | filter:filters">
+        <td>{{$index+1}}</td>
+        <td class="text-left"><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
+        <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVoteWild(blog)"></span> {{ blog.votes.length }}</td>
+        <td>{{ blog.mozrank | number:2 }}</td>
+        <td ng-init="updateBlogScoreWild($index)">{{ blog.pageauthority | number:2 }}</td>
+        <td ng-init="getMozDataWild($index)">{{ blog.linkingsites | number }}</td>
+        <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
+        <td ng-init="getTwitterCountWild($index)">{{ blog.twitterFollowers | number }}</td>
+        <td class="text-left" ng-init="showRss6($index)"><a href="{{blog.rssUrl}}" target="_blank">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
+        <button ng-click="filters.votes = currentUid" type="button" class="btn btn-primary">View My Favorite Blogs</button>
+        <button ng-click="filters = undefined" type="button" class="btn btn-info">View All Blogs</button>
+      </tr>
+    </tbody>
+    </table>
+    </div>
+  </div>
+
+    
+    <div class="row">
+    <div class="col-lg-12 suggest-blog">
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
+    <p>To suggest a blog to be added to this list please email csipe84(at)gmail.com</p>
+    </div>
+    </div>
+    
+    </div>
+  </div>
+</div>
+
+
+<footer class="footer">
+      <p>Ranked Blogs 2015 |
+        <a href="https://twitter.com/charlessipe">@charlessipe</a> |
+        A <a href="http://charlessipe.github.io/portfolio/">Charles Sipe</a> Production</p>
+  </div>
+</footer>

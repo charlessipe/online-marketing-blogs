@@ -51,4 +51,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('online-marketing', {  // Online Marketing page
+        url: '/online-marketing',
+        templateUrl: 'app/online-marketing.html',
+        controller: 'MainCtrl',
+      });
+  
   });

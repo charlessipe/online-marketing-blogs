@@ -150,6 +150,31 @@ angular.module('topProgrammingBlogsApp')
       })
     }
     
+    $scope.getTwitterOnlineMarketing = function(start) {
+      var twitterHandle = $scope.onlineMarketing[start].twitterName;
+    
+      TwitterService.getUser(twitterHandle)
+        .then(function(followers){
+        //do work with data
+          $scope.twitterErrors = undefined;
+          $scope.follower = followers;
+        //console.log(followers);
+        //$scope.currentTwitterCount.push(followers);
+          $scope.currentTwitterCount[start] = followers;
+        
+        $scope.updateTwitter = function() {
+          var item = $scope.onlineMarketing[start];
+          item.twitterFollowers = $scope.follower;
+          $scope.onlineMarketing.$save(item);
+        }
+        $scope.updateTwitter();
+        
+      })
+        .catch(function(error){
+        console.error('there was an error retrieving data: ', error);
+      })
+    }
+    
     
     
     $scope.updateBlogScore = function(start) {
@@ -211,6 +236,26 @@ angular.module('topProgrammingBlogsApp')
       blogScoreItem.blogScore = BlogScoreTotal;
       $scope.codingBootcamps.$save(blogScoreItem);
     }
+    
+    $scope.updateBlogScoreOnlineMarketing = function(start) {
+      
+      var votesValue = $scope.onlineMarketing[start].votes.length;
+      var linkingsitesValue = $scope.onlineMarketing[start].linkingsites;
+      var mozrankValue = $scope.onlineMarketing[start].mozrank;
+      var pageauthorityValue = $scope.onlineMarketing[start].pageauthority;
+      var twitterValue = $scope.onlineMarketing[start].twitterFollowers;
+      
+      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
+      
+      var blogScoreItem = $scope.onlineMarketing[start]; 
+      blogScoreItem.blogScore = BlogScoreTotal;
+      $scope.onlineMarketing.$save(blogScoreItem);
+    }
+    
+  
+    
+    
+    
     
    
     //Set random background image
@@ -284,7 +329,7 @@ angular.module('topProgrammingBlogsApp')
     }
     */
   
-    /*
+    
     $scope.getMozDataWild = function(start) {
   
     var mozUrl = wildCard[start].url;
@@ -314,7 +359,7 @@ angular.module('topProgrammingBlogsApp')
       })
     
     }
-    */
+    
     
     
     
@@ -325,6 +370,7 @@ angular.module('topProgrammingBlogsApp')
     var ref2 = new Firebase("https://seattle-startups.firebaseio.com/"); 
     var ref3 = new Firebase("https://coding-bootcamps.firebaseio.com/");
     var ref4 = new Firebase("https://personal-dev.firebaseio.com/");
+    var ref5 = new Firebase("https://online-marketing.firebaseio.com/");
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
@@ -335,6 +381,7 @@ angular.module('topProgrammingBlogsApp')
   
     $scope.data4 = $firebaseObject(ref4);
   
+    $scope.data5 = $firebaseObject(ref5);
 
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
@@ -347,8 +394,20 @@ angular.module('topProgrammingBlogsApp')
     $scope.startupBlogs = $firebaseArray(ref2);
     $scope.codingBootcamps = $firebaseArray(ref3);
     $scope.personalDev = $firebaseArray(ref4);
-    var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
-    //var wildCard = $scope.codingBootcamps;
+    $scope.onlineMarketing = $firebaseArray(ref5);
+    var wildCard = $scope.onlineMarketing; // Replace with current blog list that is being updated
+  
+    // $scope.currentBlogArray = function(){
+    // if(currentstate === "seattle-startups"){
+    //   var wildcard = $scope.startupBlogs
+    // }
+    // else if(currentstate === "online-marketing") {
+    //   var wildcard = $scope.onlineMarketing;
+    // }
+    //}
+    // $scope.currentBlogArray();
+    
+    
   
     // synchronize the object with a three-way data binding
     //syncObject.$bindTo($scope, "data");
@@ -514,6 +573,45 @@ angular.module('topProgrammingBlogsApp')
       //}
     }
     
+    $scope.showRss6 = function(start, wildVar) {  
+   
+      //for(var index = 0; index < $scope.blogs.length; index++){
+      var rssUrl = $scope.onlineMarketing[start].rssFeed;
+        
+      google.load("feeds", "1");
+
+      function initialize() {
+        var feed = new google.feeds.Feed(rssUrl);
+        feed.load(function(result) {
+          if (!result.error) {
+            var entry = result.feed.entries[0];
+            $scope.currentRss[start] = entry;
+            
+            
+            $scope.updateRss = function() {
+            var rssItem = $scope.onlineMarketing[start];
+            rssItem.rssTitle = $scope.currentRss[start].title;
+            rssItem.rssUrl = $scope.currentRss[start].link;
+            $scope.onlineMarketing.$save(rssItem);
+            }
+            $scope.updateRss();
+    
+            //$scope.currentRss = entry;
+            //$scope.rssArray.push = entry; 
+            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
+        }
+        $scope.$apply();  
+        });
+      }
+      initialize();
+      // end for loop
+      //}
+    }
+    
+    
+    
+    
+    
     
     //$scope.showRss();
     
@@ -661,6 +759,26 @@ angular.module('topProgrammingBlogsApp')
         //$scope.wildCard.$save(blog);
       }
     }
+    
+    $scope.addVoteOnlineMarketing = function(number) {  // Add votes to a blog
+      //console.log(number);
+      if(number.votes.indexOf($scope.currentUid) < 0) {
+        var blog = number;
+        blog.votes.push($scope.currentUid);
+        $scope.onlineMarketing.$save(blog);
+        //$scope.wildCard.$save(blog);
+      }
+      else {
+        //alert("Sorry! You've already voted for this blog.");
+        var blog = number;
+        var index = blog.votes.indexOf($scope.currentUid);
+        blog.votes.splice(index, 1);
+        $scope.onlineMarketing.$save(blog);
+        //$scope.wildCard.$save(blog);
+      }
+    }
+    
+    
     
 
     //$scope.sortBy = '-mozrank'; // Sort blogs by votes
