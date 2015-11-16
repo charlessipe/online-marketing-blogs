@@ -371,6 +371,9 @@ angular.module('topProgrammingBlogsApp')
     var ref3 = new Firebase("https://coding-bootcamps.firebaseio.com/");
     var ref4 = new Firebase("https://personal-dev.firebaseio.com/");
     var ref5 = new Firebase("https://online-marketing.firebaseio.com/");
+    var ref6 = new Firebase("https://parenting.firebaseio.com/");
+    var ref7 = new Firebase("https://top-programming.firebaseio.com/seattle");
+    var ref8 = new Firebase("https://top-programming.firebaseio.com/programming");
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
@@ -382,6 +385,12 @@ angular.module('topProgrammingBlogsApp')
     $scope.data4 = $firebaseObject(ref4);
   
     $scope.data5 = $firebaseObject(ref5);
+  
+    $scope.data6 = $firebaseObject(ref6);
+  
+    $scope.data7 = $firebaseObject(ref7);
+  
+    $scope.data8 = $firebaseObject(ref8);
 
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
@@ -395,9 +404,12 @@ angular.module('topProgrammingBlogsApp')
     $scope.codingBootcamps = $firebaseArray(ref3);
     $scope.personalDev = $firebaseArray(ref4);
     $scope.onlineMarketing = $firebaseArray(ref5);
+    $scope.parenting = $firebaseArray(ref6);
+    $scope.seattle = $firebaseArray(ref7);
+    $scope.programming = $firebaseArray(ref8);
     var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
   
-    $scope.$state = $state;
+    $scope.$state = $state;  // define state
     console.log("The current state is " + $state.current.name); 
   
     // set var wildCard based on which page user is on
@@ -407,6 +419,15 @@ angular.module('topProgrammingBlogsApp')
       }
       else if($state.current.name === "personal-development"){
         wildCard = $scope.personalDev;
+      }
+      else if($state.current.name === "parenting"){
+        wildCard = $scope.parenting;
+      }
+      else if($state.current.name === "seattle"){
+        wildCard = $scope.seattle;
+      }
+      else if($state.current.name === "programming"){
+        wildCard = $scope.programming;
       }
     };
     $scope.currentBlogArray();
@@ -623,8 +644,75 @@ angular.module('topProgrammingBlogsApp')
       //}
     }
     
+    $scope.showRss7 = function(start) {  
+   
+      //for(var index = 0; index < $scope.blogs.length; index++){
+      var rssUrl = $scope.parenting[start].rssFeed;
+        
+      google.load("feeds", "1");
+
+      function initialize() {
+        var feed = new google.feeds.Feed(rssUrl);
+        feed.load(function(result) {
+          if (!result.error) {
+            var entry = result.feed.entries[0];
+            $scope.currentRss[start] = entry;
+            
+            
+            $scope.updateRss = function() {
+            var rssItem = $scope.parenting[start];
+            rssItem.rssTitle = $scope.currentRss[start].title;
+            rssItem.rssUrl = $scope.currentRss[start].link;
+            $scope.parenting.$save(rssItem);
+            }
+            $scope.updateRss();
     
+            //$scope.currentRss = entry;
+            //$scope.rssArray.push = entry; 
+            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
+        }
+        $scope.$apply();  
+        });
+      }
+      initialize();
+      // end for loop
+      //}
+    }
     
+    $scope.showRssWild = function(start) {  
+   
+      //for(var index = 0; index < $scope.blogs.length; index++){
+      var rssUrl = wildCard[start].rssFeed;
+        
+      google.load("feeds", "1");
+
+      function initialize() {
+        var feed = new google.feeds.Feed(rssUrl);
+        feed.load(function(result) {
+          if (!result.error) {
+            var entry = result.feed.entries[0];
+            $scope.currentRss[start] = entry;
+            
+            
+            $scope.updateRss = function() {
+            var rssItem = wildCard[start];
+            rssItem.rssTitle = $scope.currentRss[start].title;
+            rssItem.rssUrl = $scope.currentRss[start].link;
+            wildCard.$save(rssItem);
+            }
+            $scope.updateRss();
+    
+            //$scope.currentRss = entry;
+            //$scope.rssArray.push = entry; 
+            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
+        }
+        $scope.$apply();  
+        });
+      }
+      initialize();
+      // end for loop
+      //}
+    }
     
     
     

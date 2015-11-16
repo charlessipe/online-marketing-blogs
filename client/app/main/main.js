@@ -58,4 +58,25 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('parenting', {  // Parenting page
+        url: '/parenting',
+        templateUrl: 'app/parenting.html',
+        controller: 'MainCtrl',
+      });
+  
+    $stateProvider
+      .state('seattle', {  // Seattle page
+        url: '/seattle',
+        templateUrl: 'app/seattle.html',
+        controller: 'MainCtrl',
+      });
+  
+    $stateProvider
+      .state('programming', {  // Seattle page
+        url: '/programming',
+        templateUrl: 'app/programming.html',
+        controller: 'MainCtrl',
+      });
+  
   });

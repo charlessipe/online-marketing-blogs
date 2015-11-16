@@ -10,38 +10,8 @@
     <!--<a href="">Log In To Vote</a><br> 
     <a href="">Log Out</a> -->
     <p>Hello {{ userName }}.</p>
-      
-    <h2 class="headline">Ranked Blogs ranks the top blogs according to votes by the community and web metrics.</h2>
-    <div class="row homepage-row">
-      <div class="col-md-4"><div class="homepage-icon"><span class="glyphicon glyphicon-thumbs-up"></span></div><h2>Vote on the top blogs.</h2></div>
-      <div class="col-md-4"><div class="homepage-icon"><span class="glyphicon glyphicon-circle-arrow-up"></span></div><h2>View the top blogs in your favorite subjects.</h2></div>
-      <div class="col-md-4"><div class="homepage-icon"><span class="glyphicon glyphicon-list-alt"></span></div><h2>See the latest article for each blog.</h2></div>
-    </div>
-      
-    <div class="row subjects">
-      <div class="col-xs-12">
-      <h1>Subjects</h1>
-      <p>View the top blogs from subjects of your interest.</p>
-      </div>
-    </div>
-    <div class="row subject-list">
-      <div class="col-md-4">
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='coding-bootcamps'>Coding Bootcamps</a></li>
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='online-marketing'>Online Marketing</a></li>
-      </div>
-      <div class="col-md-4">
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='parenting'>Parenting</a></li>
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='personal-development'>Personal Development</a></li>
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='programming'>Programming</a></li>
-      </div>
-      <div class="col-md-4">
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='seattle'>Seattle</a></li>
-      <li><span class="glyphicon glyphicon-circle-arrow-up"></span> <a ui-sref='seattle-startups'>Seattle Startups</a></li>
-      </div>
-    </div>
-    
-    <h1>Top Programming Blogs</h1>
-    <p>Top Programming Blogs ranks the top blogs in the programming field based on the votes by the community and website metrics.</p> 
+    <h1>Top Seattle Blogs</h1>
+    <p>The top Seattle blogs based on the votes by the community and website metrics.</p> 
     <p>Tip: Click on the <span class="glyphicon glyphicon-thumbs-up"></span> to vote for a blog.</p>  
     </div>
   </div>
@@ -63,15 +33,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="blog in programming | orderBy: sortBy | filter:filters">
+      <tr ng-repeat="blog in seattle | orderBy: sortBy | filter:filters">
         <td>{{$index+1}}</td>
         <td class="text-left"><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVoteWild(blog)"></span> {{ blog.votes.length }}</td>
-        <td ng-init="updateBlogScoreWild($index)">{{ blog.mozrank | number:2 }}</td>
-        <td>{{ blog.pageauthority | number:2 }}</td>
-        <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
+        <td>{{ blog.mozrank | number:2 }}</td>
+        <td ng-init="updateBlogScoreWild($index)">{{ blog.pageauthority | number:2 }}</td>
+        <td ng-init="getMozDataWild($index)">{{ blog.linkingsites | number }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
-        <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
+        <td ng-init="getTwitterCountWild($index)">{{ blog.twitterFollowers | number }}</td>
         <td class="text-left" ng-init="showRssWild($index)"><a href="{{blog.rssUrl}}" target="_blank">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
         <button ng-click="filters.votes = currentUid" type="button" class="btn btn-primary">View My Favorite Blogs</button>
         <button ng-click="filters = undefined" type="button" class="btn btn-info">View All Blogs</button>
@@ -81,30 +51,32 @@
     </div>
   </div>
 
-
+    
     <div class="row">
     <div class="col-lg-12 suggest-blog">
-    <p>To request a blog to be added to this list, please email csipe84(at)gmail.com.</p>
-    <!-- <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
+    <p><span class="glyphicon glyphicon-plus-sign"></span> Suggest a Blog </p>
+      
     <form>
       <span>Title: </span> <input type="text" ng-model="newContent" /></input><br>
       <span>Blog URL:</span> <input type="text" ng-model="newMainUrl" /></input><br>
+      <span>Moz URL:</span> <input type="text" ng-model="newMozUrl" /></input><br>
       <span>Twitter: </span> <input type="text" ng-model="newTwitter" /></input><br>
       <span>Twitter URL: </span> <input type="text" ng-model="newTwitUrl" /></input><br>
       <span>RSS Feed: </span> <input type="text" ng-model="newRss" /></input><br>
-      <button class="add-blog" type="submit" data-ng-click="addBlog()">Add Blog</button>
+      <button class="add-blog" type="submit" data-ng-click="addBlogWild()">Add Blog</button>
     </form>
-    <p>All fields must be filled for a new blog to be added.</p> -->
-    </div>
-    </div>
+    <p>All fields must be filled for a new blog to be added.</p>   
       
+    <p>To suggest a blog to be added to this list please email csipe84(at)gmail.com</p>
+    </div>
+    </div>
+    
     </div>
   </div>
 </div>
 
 
 <footer class="footer">
-  
       <p>Ranked Blogs 2015 |
         <a href="https://twitter.com/charlessipe">@charlessipe</a> |
         A <a href="http://charlessipe.github.io/portfolio/">Charles Sipe</a> Production</p>
