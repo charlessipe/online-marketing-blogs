@@ -374,6 +374,8 @@ angular.module('topProgrammingBlogsApp')
     var ref6 = new Firebase("https://parenting.firebaseio.com/");
     var ref7 = new Firebase("https://top-programming.firebaseio.com/seattle");
     var ref8 = new Firebase("https://top-programming.firebaseio.com/programming");
+    var ref9 = new Firebase("https://top-programming.firebaseio.com/submissions");
+    var ref10 = new Firebase("https://top-programming.firebaseio.com/marketing");
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
@@ -391,6 +393,10 @@ angular.module('topProgrammingBlogsApp')
     $scope.data7 = $firebaseObject(ref7);
   
     $scope.data8 = $firebaseObject(ref8);
+  
+    $scope.data9 = $firebaseObject(ref9);
+  
+    $scope.data10 = $firebaseObject(ref10);
 
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
@@ -407,6 +413,8 @@ angular.module('topProgrammingBlogsApp')
     $scope.parenting = $firebaseArray(ref6);
     $scope.seattle = $firebaseArray(ref7);
     $scope.programming = $firebaseArray(ref8);
+    $scope.blogSubmissions = $firebaseArray(ref9);
+    $scope.marketing = $firebaseArray(ref10);
     var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
   
     $scope.$state = $state;  // define state
@@ -431,6 +439,9 @@ angular.module('topProgrammingBlogsApp')
       }
       else if($state.current.name === "main"){
         wildCard = $scope.programming;
+      }
+      else if($state.current.name === "marketing"){
+        wildCard = $scope.marketing;
       }
     };
     $scope.currentBlogArray();
@@ -794,6 +805,22 @@ angular.module('topProgrammingBlogsApp')
       //$scope.wildCard.$save(newBlog);
     }
     
+    // Add blog submission to submissions Firebase    
+    $scope.addBlogSubmission = function() { 
+      var getBlog = $scope.newContent;
+      var getMainUrl = $scope.newMainUrl;
+      var newBlog = {
+        name: getBlog,
+        mainUrl: getMainUrl
+      };
+      
+      $scope.newContent = "";
+      $scope.newMainUrl = "";
+      
+      $scope.blogSubmissions.$add(newBlog);
+      $scope.blogSubmissions.$save(newBlog);
+    }
+    
     
     
     $scope.addVote = function(number) {  // Add votes to a blog
@@ -884,15 +911,11 @@ angular.module('topProgrammingBlogsApp')
       }
     }
     
-    
-    
 
     //$scope.sortBy = '-mozrank'; // Sort blogs by votes
     $scope.sortBy = '-blogScore';  // Sort blogs by blogScore
     //$scope.filters = {presentUid: currentUid};
 
-    
-  
   
   });
 

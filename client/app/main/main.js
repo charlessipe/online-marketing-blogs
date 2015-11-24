@@ -73,9 +73,16 @@ angular.module('topProgrammingBlogsApp')
       });
   
     $stateProvider
-      .state('programming', {  // Seattle page
+      .state('programming', {  // Programming page
         url: '/programming',
         templateUrl: 'app/programming.html',
+        controller: 'MainCtrl',
+      });
+  
+    $stateProvider
+      .state('marketing', {  // Marketing page
+        url: '/marketing',
+        templateUrl: 'app/marketing.html',
         controller: 'MainCtrl',
       });
   
