@@ -86,4 +86,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('javascript', {  // Marketing page
+        url: '/javascript',
+        templateUrl: 'app/javascript.html',
+        controller: 'MainCtrl',
+      });
+  
   });

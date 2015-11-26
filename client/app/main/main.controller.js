@@ -90,15 +90,27 @@ angular.module('topProgrammingBlogsApp')
         $scope.updateTwitter = function() {
           var item = wildCard[start];
           item.twitterFollowers = $scope.follower;
-          wildCard.$save(item);
+          console.log($scope.follower);
+          //console.log($scope.follower.error);
+          //if($scope.follower.error[0] !== 88){ // Save if $scope.follower is a number
+          //if(typeof $scope.follower.error[0] !== 'undefined'){
+          //if(!$scope.follower.error){
+            wildCard.$save(item);
+          
         }
-        $scope.updateTwitter();
+        
+        if(typeof $scope.follower === "number" ) {
+          $scope.updateTwitter();
+        }
         
       })
         .catch(function(error){
         console.error('there was an error retrieving data: ', error);
       })
+      
+      
     } 
+    
     
     $scope.getTwitterStartupBlogs = function(start) {
       var twitterHandle = $scope.startupBlogs[start].twitterName;
@@ -376,6 +388,7 @@ angular.module('topProgrammingBlogsApp')
     var ref8 = new Firebase("https://top-programming.firebaseio.com/programming");
     var ref9 = new Firebase("https://top-programming.firebaseio.com/submissions");
     var ref10 = new Firebase("https://top-programming.firebaseio.com/marketing");
+    var ref11 = new Firebase("https://top-programming.firebaseio.com/javascript");
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
@@ -398,6 +411,8 @@ angular.module('topProgrammingBlogsApp')
   
     $scope.data10 = $firebaseObject(ref10);
 
+    $scope.data11 = $firebaseObject(ref11);
+  
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
     $scope.blogs.$loaded()
@@ -415,6 +430,7 @@ angular.module('topProgrammingBlogsApp')
     $scope.programming = $firebaseArray(ref8);
     $scope.blogSubmissions = $firebaseArray(ref9);
     $scope.marketing = $firebaseArray(ref10);
+    $scope.javascript = $firebaseArray(ref11);
     var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
   
     $scope.$state = $state;  // define state
@@ -442,6 +458,9 @@ angular.module('topProgrammingBlogsApp')
       }
       else if($state.current.name === "marketing"){
         wildCard = $scope.marketing;
+      }
+      else if($state.current.name === "javascript"){
+        wildCard = $scope.javascript;
       }
     };
     $scope.currentBlogArray();
