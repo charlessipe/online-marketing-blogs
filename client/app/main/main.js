@@ -24,13 +24,6 @@ angular.module('topProgrammingBlogsApp')
       });
   
     $stateProvider
-      .state('seattle-startups', {  // Seattle Startups page
-        url: '/seattle-startups',
-        templateUrl: 'app/seattle-startups.html',
-        controller: 'MainCtrl',
-      });
-  
-    $stateProvider
       .state('add-blog', {  // Add blog page
         url: '/add-blog',
         templateUrl: 'app/add-blog.html',
@@ -90,6 +83,13 @@ angular.module('topProgrammingBlogsApp')
       .state('javascript', {  // Marketing page
         url: '/javascript',
         templateUrl: 'app/javascript.html',
+        controller: 'MainCtrl',
+      });
+  
+    $stateProvider
+      .state('seattle-startups', {  // Marketing page
+        url: '/seattle-startups',
+        templateUrl: 'app/seattle-startups.html',
         controller: 'MainCtrl',
       });
   
