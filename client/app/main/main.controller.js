@@ -204,7 +204,7 @@ angular.module('topProgrammingBlogsApp')
       $scope.blogs.$save(blogScoreItem);
     }
     
-    $scope.updateBlogScoreWild = function(start) {
+    $scope.updateBlogScoreWild = function(start) {  // Used across multiple pages
       
       var votesValue = wildCard[start].votes.length;
       var linkingsitesValue = wildCard[start].linkingsites;
@@ -381,8 +381,8 @@ angular.module('topProgrammingBlogsApp')
     /* Add more Firebase arrays */
     var ref2 = new Firebase("https://seattle-startups.firebaseio.com/"); 
     var ref3 = new Firebase("https://coding-bootcamps.firebaseio.com/");
-    var ref4 = new Firebase("https://personal-dev.firebaseio.com/");
-    var ref5 = new Firebase("https://online-marketing.firebaseio.com/");
+    var ref4 = new Firebase("https://top-programming.firebaseio.com/personal-development");
+    var ref5 = new Firebase("https://top-programming.firebaseio.com/online-marketing");
     var ref6 = new Firebase("https://parenting.firebaseio.com/");
     var ref7 = new Firebase("https://top-programming.firebaseio.com/seattle");
     var ref8 = new Firebase("https://top-programming.firebaseio.com/programming");
