@@ -93,4 +93,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('code-schools', {  // Marketing page
+        url: '/code-schools',
+        templateUrl: 'app/code-schools.html',
+        controller: 'MainCtrl',
+      });
+  
   });

@@ -136,7 +136,7 @@ angular.module('topProgrammingBlogsApp')
         console.error('there was an error retrieving data: ', error);
       })
     }
-    
+    /*
     $scope.getTwitterOnlineMarketing = function(start) {
       var twitterHandle = $scope.onlineMarketing[start].twitterName;
     
@@ -161,7 +161,7 @@ angular.module('topProgrammingBlogsApp')
         console.error('there was an error retrieving data: ', error);
       })
     }
-    
+    */
     
     
     $scope.updateBlogScore = function(start) {
@@ -208,7 +208,7 @@ angular.module('topProgrammingBlogsApp')
       blogScoreItem.blogScore = BlogScoreTotal;
       $scope.codingBootcamps.$save(blogScoreItem);
     }
-    
+    /*
     $scope.updateBlogScoreOnlineMarketing = function(start) {
       
       var votesValue = $scope.onlineMarketing[start].votes.length;
@@ -223,7 +223,7 @@ angular.module('topProgrammingBlogsApp')
       blogScoreItem.blogScore = BlogScoreTotal;
       $scope.onlineMarketing.$save(blogScoreItem);
     }
-    
+    */  
   
     
     
@@ -349,6 +349,7 @@ angular.module('topProgrammingBlogsApp')
     var ref10 = new Firebase("https://top-programming.firebaseio.com/marketing");
     var ref11 = new Firebase("https://top-programming.firebaseio.com/javascript");
     var ref12 = new Firebase("https://top-programming.firebaseio.com/seattle-startups");
+    var ref13 = new Firebase("https://top-programming.firebaseio.com/code-schools");
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
@@ -373,6 +374,8 @@ angular.module('topProgrammingBlogsApp')
   
     $scope.data12 = $firebaseObject(ref12);
   
+    $scope.data13 = $firebaseObject(ref13);
+  
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
     $scope.blogs.$loaded()
@@ -391,6 +394,7 @@ angular.module('topProgrammingBlogsApp')
     $scope.marketing = $firebaseArray(ref10);
     $scope.javascript = $firebaseArray(ref11);
     $scope.seattleStartups = $firebaseArray(ref12);
+    $scope.codeSchools = $firebaseArray(ref13);
     var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
   
     $scope.$state = $state;  // define state
@@ -424,6 +428,9 @@ angular.module('topProgrammingBlogsApp')
       }
       else if($state.current.name === "seattle-startups"){
         wildCard = $scope.seattleStartups;
+      }
+      else if($state.current.name === "code-schools"){
+        wildCard = $scope.codeSchools;
       }
     };
     $scope.currentBlogArray();
@@ -568,7 +575,7 @@ angular.module('topProgrammingBlogsApp')
       // end for loop
       //}
     }
-    
+    /*
     $scope.showRss6 = function(start, wildVar) {  
    
       //for(var index = 0; index < $scope.blogs.length; index++){
@@ -603,6 +610,7 @@ angular.module('topProgrammingBlogsApp')
       // end for loop
       //}
     }
+    */
     
     $scope.showRss7 = function(start) {  
    
@@ -821,6 +829,7 @@ angular.module('topProgrammingBlogsApp')
       }
     }
     
+    /*
     $scope.addVoteOnlineMarketing = function(number) {  // Add votes to a blog
       //console.log(number);
       if(number.votes.indexOf($scope.currentUid) < 0) {
@@ -838,7 +847,7 @@ angular.module('topProgrammingBlogsApp')
         //$scope.wildCard.$save(blog);
       }
     }
-    
+    */
 
     //$scope.sortBy = '-mozrank'; // Sort blogs by votes
     $scope.sortBy = '-blogScore';  // Sort blogs by blogScore
