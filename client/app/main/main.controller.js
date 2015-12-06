@@ -112,56 +112,7 @@ angular.module('topProgrammingBlogsApp')
     } 
     
     
-    $scope.getTwitterCodingBootcamps = function(start) {
-      var twitterHandle = $scope.codingBootcamps[start].twitterName;
-    
-      TwitterService.getUser(twitterHandle)
-        .then(function(followers){
-        //do work with data
-          $scope.twitterErrors = undefined;
-          $scope.follower = followers;
-        //console.log(followers);
-        //$scope.currentTwitterCount.push(followers);
-          $scope.currentTwitterCount[start] = followers;
-        
-        $scope.updateTwitter = function() {
-          var item = $scope.codingBootcamps[start];
-          item.twitterFollowers = $scope.follower;
-          $scope.codingBootcamps.$save(item);
-        }
-        $scope.updateTwitter();
-        
-      })
-        .catch(function(error){
-        console.error('there was an error retrieving data: ', error);
-      })
-    }
-    /*
-    $scope.getTwitterOnlineMarketing = function(start) {
-      var twitterHandle = $scope.onlineMarketing[start].twitterName;
-    
-      TwitterService.getUser(twitterHandle)
-        .then(function(followers){
-        //do work with data
-          $scope.twitterErrors = undefined;
-          $scope.follower = followers;
-        //console.log(followers);
-        //$scope.currentTwitterCount.push(followers);
-          $scope.currentTwitterCount[start] = followers;
-        
-        $scope.updateTwitter = function() {
-          var item = $scope.onlineMarketing[start];
-          item.twitterFollowers = $scope.follower;
-          $scope.onlineMarketing.$save(item);
-        }
-        $scope.updateTwitter();
-        
-      })
-        .catch(function(error){
-        console.error('there was an error retrieving data: ', error);
-      })
-    }
-    */
+   
     
     
     $scope.updateBlogScore = function(start) {
@@ -194,37 +145,8 @@ angular.module('topProgrammingBlogsApp')
       wildCard.$save(blogScoreItem);
     }
     
-    $scope.updateBlogScoreCodingBootcamps = function(start) {
-      
-      var votesValue = $scope.codingBootcamps[start].votes.length;
-      var linkingsitesValue = $scope.codingBootcamps[start].linkingsites;
-      var mozrankValue = $scope.codingBootcamps[start].mozrank;
-      var pageauthorityValue = $scope.codingBootcamps[start].pageauthority;
-      var twitterValue = $scope.codingBootcamps[start].twitterFollowers;
-      
-      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
-      
-      var blogScoreItem = $scope.codingBootcamps[start]; 
-      blogScoreItem.blogScore = BlogScoreTotal;
-      $scope.codingBootcamps.$save(blogScoreItem);
-    }
-    /*
-    $scope.updateBlogScoreOnlineMarketing = function(start) {
-      
-      var votesValue = $scope.onlineMarketing[start].votes.length;
-      var linkingsitesValue = $scope.onlineMarketing[start].linkingsites;
-      var mozrankValue = $scope.onlineMarketing[start].mozrank;
-      var pageauthorityValue = $scope.onlineMarketing[start].pageauthority;
-      var twitterValue = $scope.onlineMarketing[start].twitterFollowers;
-      
-      var BlogScoreTotal = votesValue + (linkingsitesValue * 0.00005) + (mozrankValue * 0.05) + (pageauthorityValue * 0.025) + (twitterValue * 0.00005);
-      
-      var blogScoreItem = $scope.onlineMarketing[start]; 
-      blogScoreItem.blogScore = BlogScoreTotal;
-      $scope.onlineMarketing.$save(blogScoreItem);
-    }
-    */  
-  
+    
+   
     
     
     
@@ -384,7 +306,7 @@ angular.module('topProgrammingBlogsApp')
         $scope.currentTwitterCount = new Array(res.length);
       });
 
-    $scope.codingBootcamps = $firebaseArray(ref3);
+    
     $scope.personalDev = $firebaseArray(ref4);
     $scope.onlineMarketing = $firebaseArray(ref5);
     $scope.parenting = $firebaseArray(ref6);
@@ -463,9 +385,7 @@ angular.module('topProgrammingBlogsApp')
         $scope.$apply();
       }
     });
-  
-    
-  
+   
   
     // Google Feed API
   
@@ -506,146 +426,6 @@ angular.module('topProgrammingBlogsApp')
       //}
     }
     
-    $scope.showRss4 = function(start, wildVar) {  
-   
-      //for(var index = 0; index < $scope.blogs.length; index++){
-      var rssUrl = $scope.codingBootcamps[start].rssFeed;
-        
-      google.load("feeds", "1");
-
-      function initialize() {
-        var feed = new google.feeds.Feed(rssUrl);
-        feed.load(function(result) {
-          if (!result.error) {
-            var entry = result.feed.entries[0];
-            $scope.currentRss[start] = entry;
-            
-            
-            $scope.updateRss = function() {
-            var rssItem = $scope.codingBootcamps[start];
-            rssItem.rssTitle = $scope.currentRss[start].title;
-            rssItem.rssUrl = $scope.currentRss[start].link;
-            $scope.codingBootcamps.$save(rssItem);
-            }
-            $scope.updateRss();
-    
-            //$scope.currentRss = entry;
-            //$scope.rssArray.push = entry; 
-            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
-        }
-        $scope.$apply();  
-        });
-      }
-      initialize();
-      // end for loop
-      //}
-    }
-    
-    $scope.showRss5 = function(start, wildVar) {  
-   
-      //for(var index = 0; index < $scope.blogs.length; index++){
-      var rssUrl = $scope.personalDev[start].rssFeed;
-        
-      google.load("feeds", "1");
-
-      function initialize() {
-        var feed = new google.feeds.Feed(rssUrl);
-        feed.load(function(result) {
-          if (!result.error) {
-            var entry = result.feed.entries[0];
-            $scope.currentRss[start] = entry;
-            
-            
-            $scope.updateRss = function() {
-            var rssItem = $scope.personalDev[start];
-            rssItem.rssTitle = $scope.currentRss[start].title;
-            rssItem.rssUrl = $scope.currentRss[start].link;
-            $scope.personalDev.$save(rssItem);
-            }
-            $scope.updateRss();
-    
-            //$scope.currentRss = entry;
-            //$scope.rssArray.push = entry; 
-            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
-        }
-        $scope.$apply();  
-        });
-      }
-      initialize();
-      // end for loop
-      //}
-    }
-    /*
-    $scope.showRss6 = function(start, wildVar) {  
-   
-      //for(var index = 0; index < $scope.blogs.length; index++){
-      var rssUrl = $scope.onlineMarketing[start].rssFeed;
-        
-      google.load("feeds", "1");
-
-      function initialize() {
-        var feed = new google.feeds.Feed(rssUrl);
-        feed.load(function(result) {
-          if (!result.error) {
-            var entry = result.feed.entries[0];
-            $scope.currentRss[start] = entry;
-            
-            
-            $scope.updateRss = function() {
-            var rssItem = $scope.onlineMarketing[start];
-            rssItem.rssTitle = $scope.currentRss[start].title;
-            rssItem.rssUrl = $scope.currentRss[start].link;
-            $scope.onlineMarketing.$save(rssItem);
-            }
-            $scope.updateRss();
-    
-            //$scope.currentRss = entry;
-            //$scope.rssArray.push = entry; 
-            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
-        }
-        $scope.$apply();  
-        });
-      }
-      initialize();
-      // end for loop
-      //}
-    }
-    */
-    
-    $scope.showRss7 = function(start) {  
-   
-      //for(var index = 0; index < $scope.blogs.length; index++){
-      var rssUrl = $scope.parenting[start].rssFeed;
-        
-      google.load("feeds", "1");
-
-      function initialize() {
-        var feed = new google.feeds.Feed(rssUrl);
-        feed.load(function(result) {
-          if (!result.error) {
-            var entry = result.feed.entries[0];
-            $scope.currentRss[start] = entry;
-            
-            
-            $scope.updateRss = function() {
-            var rssItem = $scope.parenting[start];
-            rssItem.rssTitle = $scope.currentRss[start].title;
-            rssItem.rssUrl = $scope.currentRss[start].link;
-            $scope.parenting.$save(rssItem);
-            }
-            $scope.updateRss();
-    
-            //$scope.currentRss = entry;
-            //$scope.rssArray.push = entry; 
-            //document.getElementById("feed").innerHTML = "<a href='"+entry.link+"'>"+entry.title+"</a>"; for div id = feed 
-        }
-        $scope.$apply();  
-        });
-      }
-      initialize();
-      // end for loop
-      //}
-    }
     
     $scope.showRssWild = function(start) {  
    
@@ -759,7 +539,7 @@ angular.module('topProgrammingBlogsApp')
       //$scope.wildCard.$save(newBlog);
     }
     
-    // Add blog submission to submissions Firebase    
+    // Add blog submission to submissions Firebase array    
     $scope.addBlogSubmission = function() { 
       var getBlog = $scope.newContent;
       var getMainUrl = $scope.newMainUrl;
@@ -811,43 +591,7 @@ angular.module('topProgrammingBlogsApp')
       }
     }
     
-    $scope.addVoteCodingBootcamps = function(number) {  // Add votes to a blog
-      //console.log(number);
-      if(number.votes.indexOf($scope.currentUid) < 0) {
-        var blog = number;
-        blog.votes.push($scope.currentUid);
-        $scope.codingBootcamps.$save(blog);
-        //$scope.wildCard.$save(blog);
-      }
-      else {
-        //alert("Sorry! You've already voted for this blog.");
-        var blog = number;
-        var index = blog.votes.indexOf($scope.currentUid);
-        blog.votes.splice(index, 1);
-        $scope.codingBootcamps.$save(blog);
-        //$scope.wildCard.$save(blog);
-      }
-    }
     
-    /*
-    $scope.addVoteOnlineMarketing = function(number) {  // Add votes to a blog
-      //console.log(number);
-      if(number.votes.indexOf($scope.currentUid) < 0) {
-        var blog = number;
-        blog.votes.push($scope.currentUid);
-        $scope.onlineMarketing.$save(blog);
-        //$scope.wildCard.$save(blog);
-      }
-      else {
-        //alert("Sorry! You've already voted for this blog.");
-        var blog = number;
-        var index = blog.votes.indexOf($scope.currentUid);
-        blog.votes.splice(index, 1);
-        $scope.onlineMarketing.$save(blog);
-        //$scope.wildCard.$save(blog);
-      }
-    }
-    */
 
     //$scope.sortBy = '-mozrank'; // Sort blogs by votes
     $scope.sortBy = '-blogScore';  // Sort blogs by blogScore
