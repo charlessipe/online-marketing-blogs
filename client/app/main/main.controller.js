@@ -272,6 +272,10 @@ angular.module('topProgrammingBlogsApp')
     var ref11 = new Firebase("https://top-programming.firebaseio.com/javascript");
     var ref12 = new Firebase("https://top-programming.firebaseio.com/seattle-startups");
     var ref13 = new Firebase("https://top-programming.firebaseio.com/code-schools");
+    var ref14 = new Firebase("https://top-programming.firebaseio.com/apple");
+    var ref15 = new Firebase("https://top-programming.firebaseio.com/farming");
+    
+  
   
     // download the data into a local object
     $scope.data = $firebaseObject(ref);
@@ -298,6 +302,10 @@ angular.module('topProgrammingBlogsApp')
   
     $scope.data13 = $firebaseObject(ref13);
   
+    $scope.data14 = $firebaseObject(ref14);
+  
+    $scope.data15 = $firebaseObject(ref15);
+  
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
     $scope.blogs.$loaded()
@@ -317,6 +325,9 @@ angular.module('topProgrammingBlogsApp')
     $scope.javascript = $firebaseArray(ref11);
     $scope.seattleStartups = $firebaseArray(ref12);
     $scope.codeSchools = $firebaseArray(ref13);
+    $scope.apple = $firebaseArray(ref14);
+    $scope.farming = $firebaseArray(ref15);
+  
     var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
   
     $scope.$state = $state;  // define state
@@ -353,6 +364,12 @@ angular.module('topProgrammingBlogsApp')
       }
       else if($state.current.name === "code-schools"){
         wildCard = $scope.codeSchools;
+      }
+      else if($state.current.name === "apple"){
+        wildCard = $scope.apple;
+      }
+      else if($state.current.name === "farming"){
+        wildCard = $scope.farming;
       }
     };
     $scope.currentBlogArray();

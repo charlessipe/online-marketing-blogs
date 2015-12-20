@@ -80,23 +80,37 @@ angular.module('topProgrammingBlogsApp')
       });
   
     $stateProvider
-      .state('javascript', {  // Marketing page
+      .state('javascript', {  // JavaScript page
         url: '/javascript',
         templateUrl: 'app/javascript.html',
         controller: 'MainCtrl',
       });
   
     $stateProvider
-      .state('seattle-startups', {  // Marketing page
+      .state('seattle-startups', {  // Seattle Startups page
         url: '/seattle-startups',
         templateUrl: 'app/seattle-startups.html',
         controller: 'MainCtrl',
       });
   
     $stateProvider
-      .state('code-schools', {  // Marketing page
+      .state('code-schools', {  // Code Schools page
         url: '/code-schools',
         templateUrl: 'app/code-schools.html',
+        controller: 'MainCtrl',
+      });
+  
+    $stateProvider
+      .state('apple', {  // Apple page
+        url: '/apple',
+        templateUrl: 'app/apple.html',
+        controller: 'MainCtrl',
+      });
+  
+    $stateProvider
+      .state('farming', {  // Farming page
+        url: '/farming',
+        templateUrl: 'app/farming.html',
         controller: 'MainCtrl',
       });
   
