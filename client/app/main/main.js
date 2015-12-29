@@ -114,4 +114,11 @@ angular.module('topProgrammingBlogsApp')
         controller: 'MainCtrl',
       });
   
+    $stateProvider
+      .state('law-firms', {  // Farming page
+        url: '/law-firms',
+        templateUrl: 'app/law-firms.html',
+        controller: 'MainCtrl',
+      });
+  
   });

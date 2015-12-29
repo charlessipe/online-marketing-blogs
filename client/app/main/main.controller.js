@@ -274,6 +274,7 @@ angular.module('topProgrammingBlogsApp')
     var ref13 = new Firebase("https://top-programming.firebaseio.com/code-schools");
     var ref14 = new Firebase("https://top-programming.firebaseio.com/apple");
     var ref15 = new Firebase("https://top-programming.firebaseio.com/farming");
+    var ref16 = new Firebase("https://top-programming.firebaseio.com/law-firms");
     
   
   
@@ -306,6 +307,8 @@ angular.module('topProgrammingBlogsApp')
   
     $scope.data15 = $firebaseObject(ref15);
   
+    $scope.data16 = $firebaseObject(ref16);
+  
     // create a synchronized array
     $scope.blogs = $firebaseArray(ref);
     $scope.blogs.$loaded()
@@ -327,6 +330,7 @@ angular.module('topProgrammingBlogsApp')
     $scope.codeSchools = $firebaseArray(ref13);
     $scope.apple = $firebaseArray(ref14);
     $scope.farming = $firebaseArray(ref15);
+    $scope.lawFirms = $firebaseArray(ref16);
   
     var wildCard = $scope.personalDev; // Replace with current blog list that is being updated
   
@@ -370,6 +374,9 @@ angular.module('topProgrammingBlogsApp')
       }
       else if($state.current.name === "farming"){
         wildCard = $scope.farming;
+      }
+      else if($state.current.name === "law-firms"){
+        wildCard = $scope.lawFirms;
       }
     };
     $scope.currentBlogArray();
@@ -542,7 +549,7 @@ angular.module('topProgrammingBlogsApp')
         votes: [1],
         twitterName: getTwitter,
         twitterUrl: getTwitUrl,
-        twitterFollowers: 100,
+        twitterFollowers: 0,
         rssFeed: getRss,
         blogScore: 100,
         rssTitle: "Newly Submitted Blog",
