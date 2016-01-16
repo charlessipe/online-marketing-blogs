@@ -8,6 +8,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+
 .headline {
   font-family: 'Noto Sans', sans-serif;
   font-weight: 700;
@@ -42,11 +43,18 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   list-style-type: none; 
 }
 
+//Navbar
+
 .navbar-brand {
   font-size: 1.8em;
   font-family: 'Noto Sans', sans-serif;
   font-weight: 700;
 }
+
+ul.nav.navbar-nav {
+  padding: 5px 0 0 0;
+}
+// align nav menu items with logo
 
 body {
   background-color: whitesmoke;
