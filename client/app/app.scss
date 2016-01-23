@@ -23,10 +23,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   height: 220px;
   background-color: #39add1;
   background-color: rgb(0,102,102);
+  background-color: #4e764e;
+  background-color: rgb(118, 96, 118);
+  background-image: url("/assets/images/dark-sharp-edges.png");
   color: white;
-  border-width: 5px;
-  border-color: whitesmoke;
-  border-style: solid;
+  border-width: 1px;
 }
 
 
@@ -37,7 +38,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 .homepage-icon {
   display:block;
-  text-align:center
+  text-align:center;
 }
 
 .col-md-4 li {
@@ -45,6 +46,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 }
 
 //Navbar
+
+
 
 .navbar-brand {
   font-size: 1.8em;
@@ -54,6 +57,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 ul.nav.navbar-nav {
   padding: 5px 0 0 0;
+  color: white;
 }
 // align nav menu items with logo
 
