@@ -188,6 +188,40 @@ angular.module('topProgrammingBlogsApp')
     //console.log($scope.currentImage);
     
     
+    // Set random background pattern 
+  
+    $scope.currentPattern = "/assets/images/dark-quilt.png";
+    
+    $scope.randomPattern = function() {
+      
+      $scope.backgroundPattern = [
+      "/assets/images/dark-sharp-edges.png",
+      "/assets/images/black-octagon.png",
+      "/assets/images/green-pentagon.png",
+      "/assets/images/stardust.png",
+      "/assets/images/grey-wash-wall.png",
+      "/assets/images/dark-quilt.png",
+      "/assets/images/black-diamonds.png",
+      "/assets/images/escher.png",
+      "/assets/images/swirls.png",
+      "/assets/images/swirls2.png",
+      "/assets/images/feathers.png",
+      "/assets/images/wood.png",
+      "/assets/images/grey-triangle.png",
+      "/assets/images/tree-bark.png"
+      ]
+      
+      var randomNum = Math.floor((Math.random() * 13) + 1);
+      //var randomNum = Math.floor((Math.random() * 5) + 1);
+      $scope.currentPattern = $scope.backgroundPattern[randomNum];
+      //console.log(randomNum);
+      //console.log($scope.backgroundImage[randomNum]);
+  
+    }
+    
+    $scope.randomPattern();
+  
+  
     
     //Only need to execute function to update Moz data because there are API rate limits that make it problematic to constantly make API requests. Manually uncomment this funtion to get metrics for a new blog.
     
