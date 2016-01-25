@@ -6,7 +6,8 @@ angular.module('topProgrammingBlogsApp')
       .state('main', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        title: 'Top Ranked Blogs - RankedBlogs.com'
       });
   
     $stateProvider
@@ -14,6 +15,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/about',
         templateUrl: 'app/about.html',
         controller: 'MainCtrl',
+        title: 'About RankedBlogs.com'
       });
 
     $stateProvider
@@ -21,6 +23,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/instructions',
         templateUrl: 'app/instructions.html',
         controller: 'MainCtrl',
+        title: 'Instructions'
       });
   
     $stateProvider
@@ -28,13 +31,14 @@ angular.module('topProgrammingBlogsApp')
         url: '/add-blog',
         templateUrl: 'app/add-blog.html',
         controller: 'MainCtrl',
+        title: 'Add blog'
       });
   
     $stateProvider
       .state('coding-bootcamps', {  // Coding Bootcamps page
         url: '/coding-bootcamps',
         templateUrl: 'app/coding-bootcamps.html',
-        controller: 'MainCtrl',
+        controller: 'MainCtrl'
       });
   
     $stateProvider
@@ -42,6 +46,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/personal-development',
         templateUrl: 'app/personal-development.html',
         controller: 'MainCtrl',
+        title: 'Top Personal Development Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -49,6 +54,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/online-marketing',
         templateUrl: 'app/online-marketing.html',
         controller: 'MainCtrl',
+        title: 'Top Online Marketing Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -56,6 +62,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/parenting',
         templateUrl: 'app/parenting.html',
         controller: 'MainCtrl',
+        title: 'Top Parenting Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -63,6 +70,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/seattle',
         templateUrl: 'app/seattle.html',
         controller: 'MainCtrl',
+        title: 'Top Seattle Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -70,6 +78,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/programming',
         templateUrl: 'app/programming.html',
         controller: 'MainCtrl',
+        title: 'Top Programming Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -77,6 +86,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/marketing',
         templateUrl: 'app/marketing.html',
         controller: 'MainCtrl',
+        title: 'Top Marketing Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -84,6 +94,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/javascript',
         templateUrl: 'app/javascript.html',
         controller: 'MainCtrl',
+        title: 'Top JavaScript Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -91,6 +102,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/seattle-startups',
         templateUrl: 'app/seattle-startups.html',
         controller: 'MainCtrl',
+        title: 'Top Seattle Startup Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -98,6 +110,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/code-schools',
         templateUrl: 'app/code-schools.html',
         controller: 'MainCtrl',
+        title: 'Top Code School Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -105,6 +118,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/apple',
         templateUrl: 'app/apple.html',
         controller: 'MainCtrl',
+        title: 'Top Apple Blogs - Ranked Blogs'
       });
   
     $stateProvider
@@ -120,6 +134,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/law-firms',
         templateUrl: 'app/law-firms.html',
         controller: 'MainCtrl',
+        title: 'Top Law Firm Blogs - Ranked Blogs'
       });
   
   });
