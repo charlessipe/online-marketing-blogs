@@ -112,6 +112,7 @@ angular.module('topProgrammingBlogsApp')
         url: '/farming',
         templateUrl: 'app/farming.html',
         controller: 'MainCtrl',
+        title: 'Top Farming Blogs - Ranked Blogs'
       });
   
     $stateProvider

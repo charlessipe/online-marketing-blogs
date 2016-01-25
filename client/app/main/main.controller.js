@@ -43,7 +43,7 @@ angular.module('topProgrammingBlogsApp')
  
 
 
-  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService, MozService, $state) {
+  .controller('MainCtrl', function ($scope, $http, $firebaseObject, $firebaseArray, $resource, TwitterService, MozService, $state, $window) {
   
    
   
@@ -444,6 +444,10 @@ angular.module('topProgrammingBlogsApp')
       }
     });
    
+    
+    // Set Title Tag
+    $scope.currentTitleTag = $state.current.title;
+    $window.document.title = $state.current.title;
   
     // Google Feed API
   
