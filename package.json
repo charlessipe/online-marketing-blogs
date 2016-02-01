@@ -52,12 +52,12 @@
     "grunt-build-control": "DaftMonk/grunt-build-control",
     "grunt-mocha-test": "~0.10.2",
     "grunt-contrib-sass": "^0.7.3",
-    "jit-grunt": "^0.5.0",
-    "time-grunt": "~0.3.1",
+    "jit-grunt": "~0.9.1",
+    "time-grunt": "~1.3.0",
     "grunt-express-server": "~0.4.17",
     "grunt-open": "~0.2.3",
     "open": "~0.0.4",
-    "jshint-stylish": "~0.1.5",
+    "jshint-stylish": "~2.1.0",
     "connect-livereload": "~0.4.0",
     "karma-ng-scenario": "~0.1.0",
     "karma-firefox-launcher": "~0.1.3",
@@ -74,7 +74,8 @@
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "supertest": "~0.11.0",
-    "should": "~3.3.1"
+    "should": "~3.3.1",
+    "grunt-serve": "~0.1.6"
   },
   "engines": {
     "node": ">=0.10.0"
