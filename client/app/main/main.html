@@ -73,11 +73,11 @@
         <td>{{$index+1}}</td>
         <td class="text-left"><a href="{{ blog.mainUrl }}">{{ blog.name }}</a></td>
         <td><span class="glyphicon glyphicon-thumbs-up hover-blue" data-ng-click="addVoteWild(blog)"></span> {{ blog.votes.length }}</td>
-        <td ng-init="updateBlogScoreWild($index)">{{ blog.mozrank | number:2 }}</td>
-        <td>{{ blog.pageauthority | number:2 }}</td>
-        <td ng-init="getMozData($index)">{{ blog.linkingsites | number }}</td>
+        <td>{{ blog.mozrank | number:2 }}</td>
+        <td ng-init="updateBlogScoreWild($index)">{{ blog.pageauthority | number:2 }}</td>
+        <td ng-init="getMozDataWild($index)">{{ blog.linkingsites | number }}</td>
         <td><a href="{{ blog.twitterUrl }}">{{ blog.twitterName }}</a></td>
-        <td ng-init="getTwitterCount($index)">{{ blog.twitterFollowers | number }}</td>
+        <td ng-init="getTwitterCountWild($index)">{{ blog.twitterFollowers | number }}</td>
         <td class="text-left" ng-init="showRssWild($index)"><a href="{{blog.rssUrl}}" target="_blank">{{blog.rssTitle}}</a> <!-- {{blog.rssFeed}} --> </td>
         <button ng-click="filters.votes = currentUid" type="button" class="btn btn-primary">View My Favorite Blogs</button>
         <button ng-click="filters = undefined" type="button" class="btn btn-info">View All Blogs</button>
