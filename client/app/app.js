@@ -10,8 +10,8 @@ angular.module('topProgrammingBlogsApp', [
   'firebase'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-      .otherwise('/');
+    //$urlRouterProvider
+    //  .otherwise('/');
 
     $locationProvider.html5Mode(true);
   });
